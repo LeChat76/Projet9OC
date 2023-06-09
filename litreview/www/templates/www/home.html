@@ -1,0 +1,9 @@
+<!-- templates/www/home.html -->
+
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
+{% endblock content %}

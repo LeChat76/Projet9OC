@@ -1,0 +1,17 @@
+<!-- templates/authentication/signup.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Inscrivez-vous</h2>
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Retourner"></input>
+        <input type="submit" value="S’inscrire"></input>
+    </form>
+{% endblock content %}

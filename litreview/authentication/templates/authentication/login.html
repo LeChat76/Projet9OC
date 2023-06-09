@@ -1,0 +1,25 @@
+<!-- templates/authentication/login.html -->
+
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div id="container">
+    <div id="signup">
+        <h2>Inscrivez-vous maintenant</h2>
+        <form action="{% url 'signup' %}">
+          <input type="submit" value="S'inscrire"></input>
+        </form>
+    </div>
+    <div id="login">
+      <h2>Connexion</h2>
+      <p>{{ message }}</p>
+      <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Se connecter" ></input>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

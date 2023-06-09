@@ -1,0 +1,25 @@
+<!-- templates/base.html -->
+
+{% load static %}
+
+<head>
+    <title>LitReview</title>
+    <link rel="stylesheet" href="{% static 'app.css' %}">   
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+    <div id="header">
+        <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview">
+        <h1>LitReview</h1>
+    </div>
+    {% block content %}
+    {% endblock content %}
+</body>
+<footer id="footer">
+    <div class="container">
+        <p>&copy; 2023 LeChat76. Tous droits réservés.</p>
+    </div>
+</footer>
+
+
+
