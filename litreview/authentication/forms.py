@@ -8,6 +8,10 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=63, widget=forms.PasswordInput())
 
 class SignupForm(UserCreationForm):
+    # delete help_text for second password fields (for my point of view : not needed)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password2'].help_text = None
     class Meta(UserCreationForm.Meta):
         pass
         model = get_user_model()
