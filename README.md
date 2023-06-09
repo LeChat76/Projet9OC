@@ -1,5 +1,5 @@
 <p align="center">
- <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/04ba5a26-0246-46db-8f83-640e8643fba0">
+ <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/93b79d39-0b2f-4a2b-aeb4-e1641983a0bc">
 </p>
 
 # Projet9OC
@@ -16,3 +16,4 @@ Create virtual environment :
     * for Windows ".\.venv\Scripts\activate"
 Install needed library by typing : "pip install -r requirements.txt"
 ```
+
