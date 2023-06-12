@@ -1,3 +1,5 @@
+/* CSS part for header */
+
 #header {
     display: flex;
     align-items: center;
@@ -6,22 +8,6 @@
     background-color: #f2f2f2;
     border: 2px solid #ccc;
 }
-
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f8f8;
-    padding: 10px 0;
-    text-align: center;
-    color: #888;
-}
-
-#footer .container {
-    max-width: 960px;
-    margin: 0 auto;
-}
-
 
 #header img {
     height: 70px;
@@ -33,17 +19,31 @@
     font-size: 48px;
 }
 
+/* CSS part for footer */
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 10px 0;
+    text-align: center;
+    color: #888;
+}
+
+/* CSS part for body */
+
 body {
-    font-family: Arial, sans-serif;
     background-image: url("/static/images/LITReview_st_b.png");
-    background-size: 350px;
+    background-size: 250px;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: rgba(255, 255, 255, 0);
 }
-  
-#container {
+
+/* CSS part for login home page */
+
+#login-container {
     display: flex;
     justify-content: space-around;
     margin-top: 100px;
@@ -66,7 +66,7 @@ body {
     border-radius: 5px;
 }
  
-input[type="text"], input[type="password"], input[type="submit"] {
+input[type="text"], input[type="password"], input[type="submit"], input[type="url"] {
     text-align : center;
     margin : 10px;
     width: 300px;
@@ -74,13 +74,89 @@ input[type="text"], input[type="password"], input[type="submit"] {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-sizing: border-box;
 }
   
-input[type="submit"] {
+input[type="submit"], input[type="url"] {
     text-align : center;
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
 }
 
+/* CSS part for signup page */
+
+.container-signup {
+    margin : 5%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 700px;
+    text-align: left;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 50px 0px 50px 50px;
+    justify-content: space-around;
+}
+
+.form-signup {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: right;
+}
+
+#container-signup input[type='text'] {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#return-signup {
+    text-align: center;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* CSS part of header once logged */
+
+
+#header-logged {
+    display: flex;
+    width: auto;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    border: 2px solid #ccc;
+}
+
+#header-logged img {
+    height: 70px;
+}
+
+/* #header-logged h1 {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 48px;
+} */
+
+#header-logged-title {
+    flex-grow: 1;
+    margin: 0;
+}
+
+/* #container-logged {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+} */
+
+#container-logged a {
+    margin-right: 20px;
+    font-size: 24px;
+    text-decoration: none;
+}

@@ -4,14 +4,13 @@
 
 {% block content %}
 
-    <h2>Inscrivez-vous</h2>
-    {% if form.errors %}
-        {{ form.errors }}
-    {% endif %}
-    <form method="post">
+<form method="post">
+    <div class="container-signup">
+        <h2><u>Inscrivez-vous</u>:</h2>
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="Retourner" formaction="{% url 'login' %}">
+        <a href="{% url 'login' %}" id="return-signup">Retourner</a>
         <input type="submit" value="S’inscrire"></input>
-    </form>
+</form>
+
 {% endblock content %}

@@ -8,9 +8,15 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body>
-    <div id="header">
+    <div id="header-logged">
         <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview">
-        <h1>LitReview</h1>
+        <h1 id="header-logged-title">LitReview</h1>
+        <div id="container-logged">
+            <a href="{% url 'login' %}" id="logged">Flux</a>
+            <a href="{% url 'login' %}" id="logged">Posts</a>
+            <a href="{% url 'login' %}" id="logged">Abonnements</a>
+            <a href="{% url 'logout' %}" id="logged">Se déconnecter</a>
+        </div>
     </div>
     <div id="footer">
         <p>&copy; 2023 LeChat76. Tous droits réservés.</p>
