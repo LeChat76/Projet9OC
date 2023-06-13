@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+<!-- templates/loggedin.html -->
 
 {% load static %}
 
@@ -8,14 +8,14 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body>
-    <div id="header-logged">
+    <div id="header-loggedin">
         <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview">
-        <h1 id="header-logged-title">LitReview</h1>
-        <div id="container-logged">
-            <a href="{% url 'login' %}" id="logged">Flux</a>
-            <a href="{% url 'login' %}" id="logged">Posts</a>
-            <a href="{% url 'login' %}" id="logged">Abonnements</a>
-            <a href="{% url 'logout' %}" id="logged">Se déconnecter</a>
+        <h1>LitReview</h1>
+        <div id="container-loggedin">
+            <a href="{% url 'login' %}">Flux</a>
+            <a href="{% url 'new_ticket' %}">Posts</a>
+            <a href="{% url 'login' %}">Abonnements</a>
+            <a href="{% url 'logout' %}">Se déconnecter</a>
         </div>
     </div>
     <div id="footer">

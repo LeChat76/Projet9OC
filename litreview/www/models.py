@@ -4,7 +4,10 @@ from django.db import models
 
 
 class Ticket(models.Model):
-    ticket = models.CharField(max_length = 128)
+    def __str__(self):
+        return f'{self.title}'
+    
+    title = models.CharField(max_length = 128)
     description = models.TextField(
         # description can be empy
         max_length = 2048,

@@ -1,0 +1,17 @@
+<!-- templates/www/ticket.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
+    <h3>Créer un ticket</h2>
+    <div id="container-ticket">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" >Envoyer</button>
+        </form>
+    </div>
+{% endblock content %}

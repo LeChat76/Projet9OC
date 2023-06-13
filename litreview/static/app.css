@@ -9,12 +9,12 @@
     border: 2px solid #ccc;
 }
 
-#header img {
+img {
     height: 70px;
     margin-right: 10px;
 }
 
-#header h1 {
+h1 {
     margin: 0;
     font-size: 48px;
 }
@@ -41,7 +41,11 @@ body {
     background-attachment: fixed;
 }
 
-/* CSS part for login home page */
+a {
+    text-decoration: none;
+}
+
+/* CSS part for login www/templates/www/home.html page */
 
 #login-container {
     display: flex;
@@ -66,7 +70,7 @@ body {
     border-radius: 5px;
 }
  
-input[type="text"], input[type="password"], input[type="submit"], input[type="url"] {
+input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"] {
     text-align : center;
     margin : 10px;
     width: 300px;
@@ -77,13 +81,12 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
 }
   
 input[type="submit"], input[type="url"] {
-    text-align : center;
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
 }
 
-/* CSS part for signup page */
+/* CSS part for authentication/templates/authentication/signup.html page */
 
 .container-signup {
     margin : 5%;
@@ -119,44 +122,66 @@ input[type="submit"], input[type="url"] {
     color: white;
     cursor: pointer;
     display: inline-block;
-    text-decoration: none;
 }
 
 /* CSS part of header once logged */
 
-
-#header-logged {
+#header-loggedin {
     display: flex;
-    width: auto;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
     background-color: #f2f2f2;
     border: 2px solid #ccc;
 }
 
-#header-logged img {
-    height: 70px;
-}
-
-/* #header-logged h1 {
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 48px;
-} */
-
-#header-logged-title {
-    flex-grow: 1;
-    margin: 0;
-}
-
-/* #container-logged {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-} */
-
-#container-logged a {
+#container-loggedin a {
     margin-right: 20px;
     font-size: 24px;
-    text-decoration: none;
+}
+
+/* CSS part of www/templates/www/ticket.html and ticket-detail */
+
+h3 {
+    display: flex;
+    justify-content: center;
+    font-size : 36px;
+}
+
+#container-ticket {
+    margin : 5%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 680px;
+    text-align: left;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 50px 0px 50px 50px;
+    justify-content: space-around;
+}
+
+#container-ticket input[type="text"], textarea[name="description"] {
+    width: 600px;
+    text-align : left;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+#container-ticket button[type="submit"] {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-top : 10px;
+    width: 630px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#container-ticket img {
+    width: auto;
+    max-width: 400px;
+    height: auto;
 }
