@@ -26,12 +26,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', authentication.views.login_page, name='login'),
     path('login/', authentication.views.login_page, name='login'),
-    path('favicon.ico', RedirectView.as_view(url='static/images/favicon.ico')),
+    path('favicon.ico/', RedirectView.as_view(url='static/images/favicon.ico')),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('home/', www.views.home, name='home'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('ticket/', www.views.new_ticket, name='new_ticket'),
     path('ticket/<int:ticket_id>/', www.views.ticket_detail, name='ticket_detail'),
+    path('flux/', www.views.flux, name='flux'),
+    path('review/', www.views.review, name='review'),
+    path('review/<int:review_id>/', www.views.review_detail, name='review_detail'),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

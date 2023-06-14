@@ -122,11 +122,13 @@ STATICFILES_DIRS = [BASE_DIR.joinpath('static/')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# LitReview project
+
 AUTH_USER_MODEL = 'authentication.User'
 
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'home'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.joinpath('media')
+MEDIA_URL = '/media/'  # download media from this folder
+MEDIA_ROOT = BASE_DIR.joinpath('media/')  # store media in that folder

@@ -1,0 +1,26 @@
+<!-- templates/www/flux.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
+    {% for ticket in tickets %}
+        <div id="container-ticket">
+            <p>
+                <label>Titre&nbsp;:</label>
+                <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
+            </p>
+            <p>
+                <label>Description&nbsp;:</label>
+                <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
+            </p>
+            <p>
+                <label>Image&nbsp;:</label>
+            </p>
+                <img src="{{ ticket.image.url }}" alt="Ticket Image">
+            </p>
+        </div>
+    {% endfor %}
+{% endblock content %}

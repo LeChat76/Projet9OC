@@ -1,0 +1,36 @@
+<!-- templates/www/review_detail.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+<p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
+<div id="container-ticket">
+    <p>
+        <label>Titre&nbsp;:</label>
+        <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
+    </p>
+    <p>
+        <label>Description&nbsp;:</label>
+        <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
+    </p>
+    <p>
+        <label>Image&nbsp;:</label>
+    </p>
+        <img src="{{ ticket.image.url }}" alt="Ticket Image">
+    </p>
+    <p>
+        <label>Titre&nbsp;:</label>
+        <input type="text" value="{{ review.headline }}" onmousedown="return false;">        
+      </p>
+    <p>
+        <label>note&nbsp;:</label>
+        <input type="number" value="{{ review.rating }}" id="id_rating">
+    </p>
+    <p>
+        <label>commentaire&nbsp;:</label>
+        <input type="text" value="{{ review.body }}" onmousedown="return false;">
+    </p>
+</div>
+{% endblock content %}
