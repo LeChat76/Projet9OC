@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from . import forms, models
-from .models import Ticket, Review
+from authentication.models import User
+from . import forms
+from .models import Ticket, Review, UserFollows
 
 
 def home(request):
@@ -15,11 +16,11 @@ def new_ticket(request):
             ticket = form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
             ticket.user = request.user # associate user to this picture upload
             ticket.save() # and finaly save
-            return redirect('ticket_detail', ticket_id=ticket.id)
+            return redirect('flux')
     else:
         form = forms.TicketForm()
     
-    return render(request, 'www/ticket.html', {'form': form, 'is_review': False})
+    return render(request, 'www/ticket.html', {'form': form})
 
 @login_required
 def ticket_detail(request, ticket_id):
@@ -30,7 +31,8 @@ def ticket_detail(request, ticket_id):
 def flux(request):
     user = request.user
     tickets = Ticket.objects.filter(user=user)
-    return render(request, 'www/flux.html', context={'tickets': tickets})
+    users = User.objects.all
+    return render(request, 'www/flux.html', context={'tickets': tickets, 'users': users, 'user_id': request.user.id})
 
 @login_required
 def review(request):
@@ -60,3 +62,10 @@ def review_detail(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     ticket_id = review.ticket
     return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
+
+def subscriptions(request):
+    user = request.user
+    followers = UserFollows.objects.filter(followed_user=user)
+    return render(request, 'www/subscriptions.html', {'followers': followers})
+    
+

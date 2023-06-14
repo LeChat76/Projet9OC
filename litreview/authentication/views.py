@@ -21,7 +21,7 @@ def login_page(request):
             if user is not None:
                 # log into the server
                 login(request, user)
-                return redirect('home')
+                return redirect('flux')
             else:
                 message = 'Identifiants invalides.'
     return render(

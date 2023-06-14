@@ -39,6 +39,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    padding-bottom: 60px;
 }
 
 a {
@@ -60,6 +61,7 @@ a {
     padding : 20px 60px 50px 50px;
     background-color: #f2f2f2;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 #login {
@@ -68,6 +70,7 @@ a {
     padding : 20px 60px 50px 50px;
     background-color: #f2f2f2;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
  
 input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"] {
@@ -149,7 +152,7 @@ h3 {
 }
 
 #container-ticket {
-    margin : 5%;
+    margin : 2%;
     margin-left : auto;
     margin-right : auto;
     width: 680px;
@@ -158,6 +161,7 @@ h3 {
     border-radius: 5px;
     padding : 10px 0px 50px 50px;
     justify-content: space-around;
+    border: 1px solid #ccc;
 }
 
 #container-ticket input[type="text"], textarea[name="description"] {
@@ -184,4 +188,30 @@ h3 {
     width: auto;
     max-width: 400px;
     height: auto;
+}
+
+/* CSS part for flux */
+
+#container-flux-button {
+    text-align: center;
+}
+
+/* #container-flux-button input[type="password"]{
+    display: inline-block;
+    width: 150px;
+    margin: 500px;
+} */
+
+#new-ticket , #new-review{
+    text-align: center;
+    width: 300px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
 }

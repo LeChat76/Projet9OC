@@ -1,0 +1,16 @@
+<!-- templates/www/followers.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+
+    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
+    <h3>Suivre d'autres utilisateurs</h3>
+    <div id="container-subscription">
+    {% for follower in followers %}
+        <textarea name="followers" cols="40" rows="10" onmousedown="return false;">{{ follower.user }}</textarea>
+    {% endfor %}
+
+{% endblock content %}
