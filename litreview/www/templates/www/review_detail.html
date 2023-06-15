@@ -18,19 +18,26 @@
     <p>
         <label>Image&nbsp;:</label>
     </p>
-        <img src="{{ ticket.image.url }}" alt="Ticket Image">
-    </p>
+    {% if ticket.image %}
+        {% if ticket.image.url %}
+            </p>
+                <img src="{{ ticket.image.url }}" alt="Ticket Image">
+            </p>
+        {% endif %}
+    {% endif %}
     <p>
         <label>Titre&nbsp;:</label>
         <input type="text" value="{{ review.headline }}" onmousedown="return false;">        
-      </p>
+    </p>
     <p>
         <label>note&nbsp;:</label>
         <input type="number" value="{{ review.rating }}" id="id_rating">
     </p>
-    <p>
-        <label>commentaire&nbsp;:</label>
-        <input type="text" value="{{ review.body }}" onmousedown="return false;">
-    </p>
+    {% if review.body %}
+        <p>
+            <label>commentaire&nbsp;:</label>
+            <input type="text" value="{{ review.body }}" onmousedown="return false;">
+        </p>
+    {% endif %}
 </div>
 {% endblock content %}

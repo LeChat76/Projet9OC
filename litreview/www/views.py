@@ -31,11 +31,23 @@ def ticket_detail(request, ticket_id):
 def flux(request):
     user = request.user
     tickets = Ticket.objects.filter(user=user)
+    for ticket in tickets:
+        print(ticket.time_created)
     users = User.objects.all
-    return render(request, 'www/flux.html', context={'tickets': tickets, 'users': users, 'user_id': request.user.id})
+    usersFollows = UserFollows.objects.all
+    return render(
+        request,
+        'www/flux.html',
+        context={
+            'tickets': tickets,
+            'users': users,
+            'usersFollows': usersFollows,
+            'user_id': request.user.id
+        }
+    )
 
 @login_required
-def review(request):
+def new_review(request):
     ticket_form = forms.TicketForm()
     review_form = forms.ReviewForm()
     if request.method == 'POST':
@@ -45,15 +57,15 @@ def review(request):
             ticket = ticket_form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
             ticket.user = request.user # associate user to this picture upload
             ticket.save() # and finaly save
-            review = review_form.save(commit=False) # commit=False to NOT submit the save, we need to associate ticket before, see bellow
+            review = review_form.save(commit=False) # commit=False to NOT submit the save, we need to associate ticket & user before, see bellow
             review.ticket = ticket # associate ticket to this review
-            review.user = request.user
+            review.user = request.user # associate user to this review
             review.save() # and finaly save
-            return redirect('review_detail', review_id=review.id)
+            return redirect('flux')
     context = {
         'ticket_form': ticket_form,
         'review_form': review_form,
-        'is_review': True,
+        # 'is_review': True,
     }
     return render(request, 'www/review.html', context=context)
 

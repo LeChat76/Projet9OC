@@ -12,9 +12,11 @@
     </div>
     {% for ticket in tickets %}
         <div id="container-ticket">
-            {% if ticket.user_id == user_id %}
-                <label>Le {{ ticket.time_created }}, vous avez publié&nbsp;:</label>
-            {% endif %}
+            <p>
+                {% if ticket.user_id == user_id %}
+                    <label>Le {{ ticket.time_created }}, vous avez publié&nbsp;:</label>
+                {% endif %}
+            </p>
             <p>
                 <label>Titre&nbsp;:</label>
                 <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
@@ -23,11 +25,14 @@
                 <label>Description&nbsp;:</label>
                 <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
             </p>
-            <p>
-                <label>Image&nbsp;:</label>
-            </p>
-                <img src="{{ ticket.image.url }}" alt="Ticket Image">
-            </p>
+            {% if ticket.image %}
+                {% if ticket.image.url %}
+                    </p>
+                        <p><label>Image&nbsp;:</label></p>
+                        <img src="{{ ticket.image.url }}" alt="Ticket Image">
+                    </p>
+                {% endif %}
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock content %}

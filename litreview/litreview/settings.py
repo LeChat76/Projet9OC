@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fr-fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -132,3 +132,5 @@ LOGIN_REDIRECT_URL = 'home'
 
 MEDIA_URL = '/media/'  # download media from this folder
 MEDIA_ROOT = BASE_DIR.joinpath('media/')  # store media in that folder
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']

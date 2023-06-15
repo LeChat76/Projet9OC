@@ -9,27 +9,23 @@ class Ticket(models.Model):
     
     title = models.CharField(max_length = 128)
     description = models.TextField(
-        # description can be empy
         max_length = 2048,
-        blank = True,
+        blank = True, # description can be empy
     )
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        # CASCADE means delete all objects referenced to this user
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE, # CASCADE means delete all objects referenced to this user
     )
     image = models.ImageField(
-        # image may not be filled in
-        null=True,
+        null=True, # image may not be filled in
         blank=True,
     )
-    time_created = models.DateField(auto_now_add=True)
+    time_created = models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
     ticket = models.ForeignKey(
         to=Ticket,
-        # CASCADE means delete all objects referenced to this ticket
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE, # CASCADE means delete all objects referenced to this ticket
     )
     rating = models.PositiveSmallIntegerField(
         validators=[
@@ -39,19 +35,16 @@ class Review(models.Model):
     headline = models.CharField(max_length=128)
     body = models.CharField(
         max_length=8192,
-        # body can be empty
-        blank=True,
+        blank=True, # body can be empty
     )
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        # CASCADE means delete all objects referenced to this user
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE, # CASCADE means delete all objects referenced to this user
     )
     time_created = models.DateTimeField(auto_now_add=True)
 
 
 class UserFollows(models.Model):
-    # Your UserFollows model definition goes here
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

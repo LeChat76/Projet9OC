@@ -9,7 +9,7 @@
     border: 2px solid #ccc;
 }
 
-img {
+#header img {
     height: 70px;
     margin-right: 10px;
 }
@@ -156,7 +156,7 @@ h3 {
     margin-left : auto;
     margin-right : auto;
     width: 680px;
-    text-align: left;
+    /* text-align: left; */
     background-color: #f2f2f2;
     border-radius: 5px;
     padding : 10px 0px 50px 50px;
@@ -186,8 +186,10 @@ h3 {
 
 #container-ticket img {
     width: auto;
-    max-width: 400px;
+    max-width: 300px;
     height: auto;
+    display: block;
+    margin: auto;
 }
 
 /* CSS part for flux */
