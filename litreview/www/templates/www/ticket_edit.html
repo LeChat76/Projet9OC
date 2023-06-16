@@ -1,0 +1,27 @@
+<!-- templates/www/ticket_edit.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+    <h3>Modifier le ticket</h2>
+    <div id="container-ticket">
+        <form method="post" enctype="multipart/form-data">
+            {{ edit_form.as_p }}
+            {% if edit_form.instance.image %}
+                <div class="form-field">
+                    <label>Image actuelle:</label>
+                    <img src="{{ edit_form.instance.image.url }}" alt="Image actuelle">
+                </div>
+            {% endif %}
+            {% if review_form %}
+                <div class="form-field">
+                    {{ review_form.as_p }}
+                </div>
+            {% endif %}
+            {% csrf_token %}
+            <button type="submit" >Sauvegarder</button>
+        </form>
+    </div>
+{% endblock content %}

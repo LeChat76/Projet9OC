@@ -5,5 +5,4 @@
 {% extends 'loggedin.html' %}
 
 {% block content %}
-<p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
 {% endblock content %}

@@ -1,0 +1,58 @@
+<!-- templates/www/post.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div id="container-ticket">
+            {% if post.content_type == 'TICKET' %}
+                <p>
+                    {% if post.ticket.user_id == user_id %}
+                        <label>Le {{ post.time_created }}, vous avez publié&nbsp;:</label>
+                    {% endif %}
+                </p>
+                <p>
+                    <label>Titre&nbsp;:</label>
+                    <input type="text" value="{{ post.title }}" onmousedown="return false;">
+                </p>
+                {% if post.description %}
+                    <p>
+                        <label>Description&nbsp;:</label>
+                        <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ post.description }}</textarea>
+                    </p>
+                {% endif %}
+                {% if post.image %}
+                    {% if post.image.url %}
+                        </p>
+                            <p><label>Image&nbsp;:</label></p>
+                            <img src="{{ post.image.url }}" alt="Ticket Image">
+                        </p>
+                    {% endif %}
+                {% endif %}
+            {% elif post.content_type == 'REVIEW' %}
+                <p>
+                    <label>Titre&nbsp;:</label>
+                    <input type="text" value="{{ post.headline }}" onmousedown="return false;">        
+                </p>
+                <p>
+                    <label>note&nbsp;:</label>
+                    <input type="number" value="{{ post.rating }}" id="id_rating">
+                </p>
+                {% if post.body %}
+                    <p>
+                        <label>commentaire&nbsp;:</label>
+                        <input type="text" value="{{ post.body }}" onmousedown="return false;">
+                    </p>
+                {% endif %}
+            {% endif %}
+            <div class="container-post-buttons">
+                <p>
+                    <a href="{% url 'ticket_edit' post.id %}" id="modify-ticket">Modifier</a>
+                    <a href="{% url 'ticket_edit' post.id %}" id="modify-ticket">Supprimer</a>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

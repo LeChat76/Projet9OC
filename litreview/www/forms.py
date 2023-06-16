@@ -1,9 +1,14 @@
 # www/forms.py
 
-from django.forms import ModelForm
+from django import forms
 from . import models
 
-class TicketForm(ModelForm):
+class TicketForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(TicketForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.image:
+            self.fields['image'].label = ''
 
     class Meta:
         model = models.Ticket
@@ -16,7 +21,7 @@ class TicketForm(ModelForm):
             'title': 'Titre',
         }
 
-class ReviewForm(ModelForm):
+class ReviewForm(forms.ModelForm):
     
     class Meta:
         model = models.Review

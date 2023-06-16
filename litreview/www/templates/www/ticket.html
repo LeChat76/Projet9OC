@@ -5,7 +5,6 @@
 {% extends 'loggedin.html' %}
 
 {% block content %}
-    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
     <h3>Créer un ticket</h3>
     <div id="container-ticket">
         <form method="post" enctype="multipart/form-data">

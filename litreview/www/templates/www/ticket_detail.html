@@ -5,21 +5,23 @@
 {% extends 'loggedin.html' %}
 
 {% block content %}
-    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
     <h3>Detail du ticket</h3>
     <div id="container-ticket">
         <p>
             <label>Titre&nbsp;:</label>
-            <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
+            <input type="text" value="{{ ticket.title }}">
         </p>
         <p>
             <label>Description&nbsp;:</label>
-            <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
+            <textarea name="description" cols="40" rows="10">{{ ticket.description }}</textarea>
         </p>
-        <p>
-            <label>Image&nbsp;:</label>
-        </p>
-            <img src="{{ ticket.image.url }}" alt="Ticket Image">
-        </p>
+        {% if ticket.image %}
+            {% if ticket.image.url %}
+                </p>
+                    <p><label>Image&nbsp;:</label></p>
+                    <img src="{{ ticket.image.url }}" alt="Ticket Image">
+                </p>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock content %}

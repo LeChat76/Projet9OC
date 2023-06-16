@@ -9,7 +9,7 @@
     border: 2px solid #ccc;
 }
 
-#header img {
+#header-loggedin img {
     height: 70px;
     margin-right: 10px;
 }
@@ -156,7 +156,6 @@ h3 {
     margin-left : auto;
     margin-right : auto;
     width: 680px;
-    /* text-align: left; */
     background-color: #f2f2f2;
     border-radius: 5px;
     padding : 10px 0px 50px 50px;
@@ -192,17 +191,22 @@ h3 {
     margin: auto;
 }
 
-/* CSS part for flux */
+/* CSS part for post */
 
-#container-flux-button {
+#modify-ticket {
     text-align: center;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
 }
 
-/* #container-flux-button input[type="password"]{
-    display: inline-block;
-    width: 150px;
-    margin: 500px;
-} */
+/* CSS part for flux */
 
 #new-ticket , #new-review{
     text-align: center;
@@ -216,4 +220,10 @@ h3 {
     color: white;
     cursor: pointer;
     display: inline-block;
+}
+
+#container-flux-button {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
 }

@@ -32,10 +32,14 @@ urlpatterns = [
     path('signup/', authentication.views.signup_page, name='signup'),
     path('ticket/', www.views.new_ticket, name='new_ticket'),
     path('ticket/<int:ticket_id>/', www.views.ticket_detail, name='ticket_detail'),
-    path('flux/', www.views.flux, name='flux'),
+    path('ticket/<int:ticket_id>/edit', www.views.ticket_edit, name='ticket_edit'),
+    # path('ticket/<int:ticket_id>/delete', www.views.ticket_delete, name='ticket_delete'),
+    path('post/', www.views.post, name='post'),
     path('review/', www.views.new_review, name='new_review'),
     path('review/<int:review_id>/', www.views.review_detail, name='review_detail'),
+    # path('review/<int:ticket_id>/edit', www.views.review_edit, name='review_edit'),
     path('subscriptions/', www.views.subscriptions, name='subscriptions'),
+    path('flux/', www.views.flux, name='flux'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

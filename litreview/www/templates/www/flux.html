@@ -5,34 +5,9 @@
 {% extends 'loggedin.html' %}
 
 {% block content %}
-    <p>Vous êtes connecté en tant que <a href="{% url 'logout' %}">{{ request.user|capfirst }}.</a></p>
-    <div id="container-flux-button">
-        <a href="{% url 'new_ticket' %}" id="new-ticket">Demander une critique</a>
-        <a href="{% url 'new_review' %}" id="new-review">Créer une critique</a>
-    </div>
-    {% for ticket in tickets %}
-        <div id="container-ticket">
-            <p>
-                {% if ticket.user_id == user_id %}
-                    <label>Le {{ ticket.time_created }}, vous avez publié&nbsp;:</label>
-                {% endif %}
-            </p>
-            <p>
-                <label>Titre&nbsp;:</label>
-                <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
-            </p>
-            <p>
-                <label>Description&nbsp;:</label>
-                <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
-            </p>
-            {% if ticket.image %}
-                {% if ticket.image.url %}
-                    </p>
-                        <p><label>Image&nbsp;:</label></p>
-                        <img src="{{ ticket.image.url }}" alt="Ticket Image">
-                    </p>
-                {% endif %}
-            {% endif %}
-        </div>
-    {% endfor %}
+<div id="container-flux-button">
+    <a href="{% url 'new_ticket' %}" id="new-ticket">Demander une critique</a>
+    <a href="{% url 'new_review' %}" id="new-review">Créer une critique</a>
+</div>
+
 {% endblock content %}
