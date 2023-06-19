@@ -1,14 +1,19 @@
-from itertools import chain, zip_longest
+from itertools import chain
 from django.db.models import CharField, Value
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from authentication.models import User
 from . import models, forms
-from .models import Ticket, Review, UserFollows
+from .models import Ticket, Review
+from PIL import Image
 
 
 def home(request):
     return render(request, 'www/home.html')
+
+def resize_image(image, max_size):
+    img = Image.open(image)
+    img.thumbnail(max_size)
+    return img
 
 @login_required
 def new_ticket(request):
@@ -24,20 +29,33 @@ def new_ticket(request):
     
     return render(request, 'www/ticket.html', {'form': form})
 
-@login_required
-def ticket_detail(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    return render(request, 'www/ticket_detail.html', {'ticket': ticket})
+# @login_required
+# def ticket_detail(request, ticket_id):
+#     ticket = get_object_or_404(Ticket, id=ticket_id)
+#     return render(request, 'www/ticket_detail.html', {'ticket': ticket})
 
 @login_required
 def post(request):
-    reviews = Review.objects.filter(user=request.user)
+    reviews = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    tickets = Ticket.objects.filter(user=request.user)
+    tickets = get_users_viewable_tickets(request.user) 
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-    posts = list(zip_longest(tickets, reviews))
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+        reverse=True,
+    )
     
     return render(request, 'www/post.html', context={'posts': posts})
+
+def get_users_viewable_reviews(user):
+    reviews = Review.objects.filter(user=user)
+    return reviews
+
+def get_users_viewable_tickets(user):
+    tickets = Ticket.objects.filter(user=user)
+    return tickets
 
 @login_required
 def new_review(request):
@@ -58,7 +76,6 @@ def new_review(request):
     context = {
         'ticket_form': ticket_form,
         'review_form': review_form,
-        # 'is_review': True,
     }
     return render(request, 'www/review.html', context=context)
 
@@ -67,30 +84,47 @@ def review_detail(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     ticket_id = review.ticket
     return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
-
-def subscriptions(request):
-    user = request.user
-    followers = UserFollows.objects.filter(followed_user=user)
-    return render(request, 'www/subscriptions.html', {'followers': followers})
-    
+   
 @login_required
-def ticket_edit(request, ticket_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+def review_edit(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
-    review = Review.objects.filter(ticket_id=ticket_id).first()
+    review = get_object_or_404(Review, ticket_id=ticket_id)
     review_form = forms.ReviewForm(instance=review)
-    if review is None:
-        review_form = ''
     if request.method == 'POST':
         edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-        if edit_form.is_valid():
-            edit_form.save()
+        review_form = forms.ReviewForm(request.POST, instance=review)
+        if all([edit_form.is_valid(), review_form.is_valid()]):
+            edited_ticket = edit_form.save(commit=False)
+            edited_ticket.user = request.user
+            edited_ticket.save()
+            review = review_form.save(commit=False)
+            review.ticket = edited_ticket
+            review.user = request.user
+            review.save()
             return redirect('post')
     context = {
         'edit_form': edit_form,
         'review_form': review_form,
     }
+    return render(request, 'www/review_edit.html', context=context)
+
+@login_required
+def ticket_edit(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    edit_form = forms.TicketForm(instance=ticket)
+    if request.method == 'POST':
+        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+        if edit_form.is_valid():
+            edited_ticket = edit_form.save(commit=False)
+            edited_ticket.user = request.user
+            edited_ticket.save()
+            return redirect('post')
+    context = {
+        'edit_form': edit_form,
+    }
     return render(request, 'www/ticket_edit.html', context=context)
 
+@login_required
 def flux(request):
     return render(request, 'www/flux.html')

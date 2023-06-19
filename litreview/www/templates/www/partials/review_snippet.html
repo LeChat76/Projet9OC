@@ -1,0 +1,46 @@
+<!-- templates/www/partials/review_snippet.html -->
+
+{% load static %}
+
+<div id="container">
+    <p><label>Le {{ post.time_created }}, vous avez publié une critique</label></p>
+    <p>
+        <label onmousedown="return false;">{{ post.headline }} - 
+            <div class="rating-stars">
+                <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 3 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 4 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating == 5 %}filled{% endif %}"></span>
+            </div>
+        </label>
+    <!-- <img src="{% static 'images/empty-star.png' %}" alt="Empty Star"> -->
+        
+    {% if post.body %}
+        <p><label onmousedown="return false;">{{ post.body }}</label></p>
+    {% endif %}
+    <div id="container-ticket">
+        {% if post.ticket.user == request.user %}
+            <p><label onmousedown="return false;">Ticket - Vous</label> </p>
+        {% else %}
+            <p><label onmousedown="return false;">Ticket - {{ request.user|capfirst }}</label> </p>
+        {% endif %}
+        <p><label onmousedown="return false;">{{ post.ticket.title }}</label></p>
+        {% if post.ticket.description %}
+            <p><label onmousedown="return false;">{{ post.ticket.description }}</label></p>
+        {% endif %}
+        {% if post.ticket.image %}
+            {% if post.ticket.image.url %}
+                <p>
+                    <img src="{{ post.ticket.image.url }}" alt="Ticket Image">
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="container-buttons">
+        <p>
+            <a href="{% url 'review_edit' post.ticket.id %}" id="modify-ticket">Modifier</a>
+            <a href="{% url 'review_edit' post.ticket.id %}" id="modify-ticket">Supprimer</a>
+        </p>
+    </div>
+</div>

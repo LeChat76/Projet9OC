@@ -23,6 +23,12 @@ class TicketForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     
+    rating = forms.ChoiceField(
+        choices=[(str(i), str(i)) for i in range(6)],
+        widget=forms.RadioSelect(attrs={'class': 'rating-radio'}),
+        label='Note'
+    )
+
     class Meta:
         model = models.Review
         fields = [
@@ -32,6 +38,5 @@ class ReviewForm(forms.ModelForm):
         ]
         labels = {
             'headline':  'Titre',
-            'rating': 'note',
-            'body': 'commentaire',
+            'body': 'Commentaire',
         }

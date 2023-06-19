@@ -1,0 +1,19 @@
+#container-flux-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#new-ticket, #new-review{
+    text-align: center;
+    width: 300px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}

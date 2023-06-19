@@ -4,7 +4,12 @@
 
 {% extends 'loggedin.html' %}
 
+{% load static %}
+
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'flux.css' %}"> 
+
 <div id="container-flux-button">
     <a href="{% url 'new_ticket' %}" id="new-ticket">Demander une critique</a>
     <a href="{% url 'new_review' %}" id="new-review">Créer une critique</a>

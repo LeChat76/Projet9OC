@@ -1,0 +1,55 @@
+/* CSS part for header */
+
+#header-loggedin img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 48px;
+}
+
+/* CSS part for footer */
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 10px 0;
+    text-align: center;
+    color: #888;
+}
+
+/* CSS part for body */
+
+body {
+    background-image: url("/static/images/LITReview_st_b.png");
+    background-size: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-bottom: 60px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* CSS part of header once logged */
+
+#header-loggedin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 2px solid #ccc;
+}
+
+#container-loggedin a {
+    margin-right: 20px;
+    font-size: 24px;
+}
+

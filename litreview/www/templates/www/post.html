@@ -4,59 +4,19 @@
 
 {% extends 'loggedin.html' %}
 
+{% load static %}
+
 {% block content %}
-    {% for ticket, review in posts %}
-        <div id="container-ticket">
-            {% if ticket.user_id == user_id %}
-                <label>Le {{ ticket.time_created }}, vous avez publié :</label>
-            {% endif %}
-            
-            <p>
-                <label>Titre :</label>
-                <input type="text" value="{{ ticket.title }}" onmousedown="return false;">
-            </p>
-            
-            {% if ticket.description %}
-                <p>
-                    <label>Description :</label>
-                    <textarea name="description" cols="40" rows="10" onmousedown="return false;">{{ ticket.description }}</textarea>
-                </p>
-            {% endif %}
-            
-            {% if ticket.image %}
-                {% if ticket.image.url %}
-                    <p>
-                        <label>Image :</label>
-                        <img src="{{ ticket.image.url }}" alt="Ticket Image">
-                    </p>
-                {% endif %}
-            {% endif %}
-            
-            {% if review %}
-                {% if review.content_type == 'REVIEW' %}
-                    <p>
-                        <label>Titre :</label>
-                        <input type="text" value="{{ review.headline }}" onmousedown="return false;">
-                    </p>
-                    <p>
-                        <label>Note :</label>
-                        <input type="number" value="{{ review.rating }}" id="id_rating">
-                    </p>
-                    {% if review.body %}
-                        <p>
-                            <label>Commentaire :</label>
-                            <input type="text" value="{{ review.body }}" onmousedown="return false;">
-                        </p>
-                    {% endif %}
-                {% endif %}
-            {% endif %}
-            
-            <div class="container-post-buttons">
-                <p>
-                    <a href="{% url 'ticket_edit' ticket.id %}" id="modify-ticket">Modifier</a>
-                    <a href="{% url 'ticket_edit' ticket.id %}" id="modify-ticket">Supprimer</a>
-                </p>
-            </div>
-        </div>
+
+<link rel="stylesheet" href="{% static 'post.css' %}"> 
+
+    {% for post in posts %}
+
+        {% if post.content_type == 'TICKET' %}
+            {% include './partials/ticket_snippet.html' %}
+        {% elif post.content_type == 'REVIEW' %}
+            {% include './partials/review_snippet.html' %}
+        {% endif %}
+
     {% endfor %}
 {% endblock content %}

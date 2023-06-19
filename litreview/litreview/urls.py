@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path
 import authentication.views
 import www.views
+import www.templates.www.partials
 from django.views.generic import RedirectView
 
 urlpatterns = [
@@ -28,18 +29,19 @@ urlpatterns = [
     path('login/', authentication.views.login_page, name='login'),
     path('favicon.ico/', RedirectView.as_view(url='static/images/favicon.ico')),
     path('logout/', authentication.views.logout_user, name='logout'),
-    path('home/', www.views.home, name='home'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('ticket/', www.views.new_ticket, name='new_ticket'),
-    path('ticket/<int:ticket_id>/', www.views.ticket_detail, name='ticket_detail'),
-    path('ticket/<int:ticket_id>/edit', www.views.ticket_edit, name='ticket_edit'),
+    # path('ticket/<int:ticket_id>/', www.views.ticket_detail, name='ticket_detail'),
+    path('ticket/<int:ticket_id>/edit/', www.views.ticket_edit, name='ticket_edit'),
     # path('ticket/<int:ticket_id>/delete', www.views.ticket_delete, name='ticket_delete'),
     path('post/', www.views.post, name='post'),
     path('review/', www.views.new_review, name='new_review'),
     path('review/<int:review_id>/', www.views.review_detail, name='review_detail'),
-    # path('review/<int:ticket_id>/edit', www.views.review_edit, name='review_edit'),
-    path('subscriptions/', www.views.subscriptions, name='subscriptions'),
+    path('review/<int:ticket_id>/edit/', www.views.review_edit, name='review_edit'),
+    path('subscriptions/', authentication.views.subscriptions, name='subscriptions'),
     path('flux/', www.views.flux, name='flux'),
+    # path('ticket_snippet/', www.templates.www.partials, name='ticket_snippet'),
+    # path('review_snippet/', www.templates.www.partials, name='review_snippet'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

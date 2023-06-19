@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from .models import UserFollows
 
 from . import forms
 
@@ -44,3 +45,8 @@ def signup_page(request):
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
     return render(request, 'authentication/signup.html', context={'form': form})
+
+def subscriptions(request):
+    user = request.user
+    followers = UserFollows.objects.filter(followed_user=user)
+    return render(request, 'www/subscriptions.html', {'followers': followers})

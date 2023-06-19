@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 from django.db import models
+from PIL import Image
 
 
 class Ticket(models.Model):
@@ -22,6 +23,18 @@ class Ticket(models.Model):
     )
     time_created = models.DateTimeField(auto_now_add=True)
 
+    IMAGE_MAX_SIZE = (800, 800)
+
+    def resize_image(self):
+        if self.image:
+            image = Image.open(self.image.path)
+            image.thumbnail(self.IMAGE_MAX_SIZE)
+            image.save(self.image.path)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.resize_image()
+
 class Review(models.Model):
     ticket = models.ForeignKey(
         to=Ticket,
@@ -42,20 +55,3 @@ class Review(models.Model):
         on_delete=models.CASCADE, # CASCADE means delete all objects referenced to this user
     )
     time_created = models.DateTimeField(auto_now_add=True)
-
-
-class UserFollows(models.Model):
-    user = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='following',
-    )
-    followed_user = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='followed_by',
-    )
-    class Meta:
-        # ensures we don't get multiple UserFollows instances
-        # for unique user-user_followed pairs
-        unique_together = ('user', 'followed_user', )

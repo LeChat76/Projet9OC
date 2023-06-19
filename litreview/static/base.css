@@ -1,0 +1,78 @@
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 2px solid #ccc;
+}
+
+#header-loggedin img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 48px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 10px 0;
+    text-align: center;
+    color: #888;
+}
+
+body {
+    background-image: url("/static/images/LITReview_st_b.png");
+    background-size: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-bottom: 60px;
+}
+
+#login-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+
+#signup {
+    width: 350px;
+    height: 120px;
+    text-align : center;
+    padding : 20px 60px 50px 50px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#login {
+    width: 350px;
+    text-align : center;
+    padding : 20px 60px 50px 50px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+ 
+input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"] {
+    text-align : center;
+    margin : 10px;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+  
+input[type="submit"], input[type="url"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}

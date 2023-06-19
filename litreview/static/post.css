@@ -1,0 +1,59 @@
+a {
+    text-decoration: none;
+}
+
+#container {
+    margin : 2%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 680px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 0px 50px 50px;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+}
+
+#modify-ticket {
+    text-align: center;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+#container img {
+    width: auto;
+    max-width: 200px;
+    height: auto;
+    display: inline-block;
+    margin: auto;
+}
+
+#container-ticket {
+    margin : 2%;
+    margin-left : 0;
+    width: 580px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 0px 50px 50px;
+    /* justify-content: space-around; */
+    border: 1px solid #ccc;
+}
+
+.star {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("images/empty-star.png");
+    background-repeat: no-repeat;
+}
+
+.filled {
+    background-image: url("images/filled-star.png");
+}
+
