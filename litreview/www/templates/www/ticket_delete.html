@@ -9,21 +9,31 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'ticket.css' %}"> 
-<h3>Modifier le ticket</h2>
+<h3>Supprimer un ticket</h2>
 <div id="container-ticket">
-    <form method="post" enctype="multipart/form-data">
-        {{ delete_form.as_p }}
-        {% if delete_form.instance.image %}
-            <div class="form-field">
-                <img src="{{ delete_form.instance.image.url }}" alt="Image actuelle">
-            </div>
+    {% if ticket.user == request.user %}
+        <p><label>Ticket - Vous</label> </p>
+    {% else %}
+        <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+    {% endif %}
+    <p><label>{{ ticket.title }}</label></p>
+    {% if ticket.description %}
+        <p><label>{{ ticket.description }}</label></p>
+    {% endif %}
+    {% if ticket.image %}
+        {% if ticket.image.url %}
+            <p>
+                <img src="{{ ticket.image.url }}" alt="Ticket Image">
+            </p>
         {% endif %}
+    {% endif %}
+    <p><label id="label-confirmation">Etes vous sure de vouloir supprimer ce ticket?</label></p>
+    <form method="post">
         {% csrf_token %}
-        <p><label id="label-confirmation">Etes vous sure de vouloir supprimer ce ticket?</label></p>
         <div class="container-ticket">
             <p>
-                <input type="submit" name="confirm" value="Oui">
-                <input type="submit" name="confirm" value="Non">
+                <button type="submit" name="confirm" value="oui">Oui</button>
+                <button type="submit" name="confirm" value="non">Non</button>
             </p>
         </div>
     </form>

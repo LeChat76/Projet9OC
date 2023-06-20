@@ -21,24 +21,6 @@ class TicketForm(forms.ModelForm):
             'title': 'Titre',
         }
 
-class TicketDeleteForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(TicketDeleteForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.image:
-            self.fields['image'].label = ''
-
-    class Meta:
-        model = models.Ticket
-        fields = [
-            'title',
-            'description',
-            'image'
-        ]
-        labels = {
-            'title': 'Titre',
-        }
-
 class ReviewForm(forms.ModelForm):
     
     rating = forms.ChoiceField(

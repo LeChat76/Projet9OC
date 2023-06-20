@@ -1,4 +1,4 @@
-input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"] {
+input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"], textarea[name="body"] {
     text-align : center;
     margin : 10px;
     width: 300px;
@@ -8,7 +8,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
     border-radius: 10px;
 }
 
-#container-review input[type="text"], textarea[name="description"] {
+#container-review input[type="text"], textarea[name="description"], textarea[name="body"] {
     width: 600px;
     text-align : left;
     background-color: #f2f2f2;
@@ -75,4 +75,21 @@ h3 {
 
 .filled {
     background-image: url("LitReview/static/images/filled-star.png");
+}
+
+#label-confirmation {
+    display: flex;
+    justify-content: center;
+    color: red;
+}
+
+#container-ticket {
+    margin : 2%;
+    margin-left : 0;
+    width: 580px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 0px 50px 50px;
+    /* justify-content: space-around; */
+    border: 1px solid #ccc;
 }

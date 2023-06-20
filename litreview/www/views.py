@@ -2,37 +2,25 @@ from itertools import chain
 from django.db.models import CharField, Value
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from . import models, forms
+from . import forms
 from .models import Ticket, Review
-from PIL import Image
 
 
-def home(request):
-    return render(request, 'www/home.html')
+def get_users_viewable_reviews(user):
+    reviews = Review.objects.filter(user=user)
+    return reviews
 
-def resize_image(image, max_size):
-    img = Image.open(image)
-    img.thumbnail(max_size)
-    return img
-
-@login_required
-def new_ticket(request):
-    if request.method == 'POST':
-        form = forms.TicketForm(request.POST, request.FILES)
-        if form.is_valid():
-            ticket = form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
-            ticket.user = request.user # associate user to this picture upload
-            ticket.save() # and finaly save
-            return redirect('post')
-    else:
-        form = forms.TicketForm()
-    
-    return render(request, 'www/ticket.html', {'form': form})
+def get_users_viewable_tickets(user):
+    tickets = Ticket.objects.filter(user=user)
+    return tickets
 
 # @login_required
-# def ticket_detail(request, ticket_id):
-#     ticket = get_object_or_404(Ticket, id=ticket_id)
-#     return render(request, 'www/ticket_detail.html', {'ticket': ticket})
+# def home(request):
+#     return render(request, 'www/home.html')
+
+@login_required
+def flux(request):
+    return render(request, 'www/flux.html')
 
 @login_required
 def post(request):
@@ -49,13 +37,49 @@ def post(request):
     
     return render(request, 'www/post.html', context={'posts': posts})
 
-def get_users_viewable_reviews(user):
-    reviews = Review.objects.filter(user=user)
-    return reviews
+@login_required
+def new_ticket(request):
+    if request.method == 'POST':
+        form = forms.TicketForm(request.POST, request.FILES)
+        if form.is_valid():
+            ticket = form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
+            ticket.user = request.user # associate user to this picture upload
+            ticket.save() # and finaly save
+            return redirect('post')
+    else:
+        form = forms.TicketForm()
+    
+    return render(request, 'www/ticket.html', {'form': form})
 
-def get_users_viewable_tickets(user):
-    tickets = Ticket.objects.filter(user=user)
-    return tickets
+@login_required
+def ticket_edit(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    edit_form = forms.TicketForm(instance=ticket)
+    if request.method == 'POST':
+        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+        if edit_form.is_valid():
+            edited_ticket = edit_form.save(commit=False)
+            edited_ticket.user = request.user
+            edited_ticket.save()
+            return redirect('post')
+    context = {
+        'edit_form': edit_form,
+    }
+    return render(request, 'www/ticket_edit.html', context=context)
+
+@login_required
+def ticket_delete(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    confirm = request.POST.get('confirm')
+
+    if confirm == 'oui':
+        ticket.delete()
+        return redirect('post')
+    elif confirm == 'non':
+        return redirect('post')
+
+    return render(request, 'www/ticket_delete.html', {'ticket': ticket})
 
 @login_required
 def new_review(request):
@@ -86,11 +110,12 @@ def new_review(request):
 #     return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
    
 @login_required
-def review_edit(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    edit_form = forms.TicketForm(instance=ticket)
-    review = get_object_or_404(Review, ticket_id=ticket_id)
+def review_edit(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
     review_form = forms.ReviewForm(instance=review)
+    ticket = get_object_or_404(Ticket, id=review.ticket_id)
+    edit_form = forms.TicketForm(instance=ticket)
+
     if request.method == 'POST':
         edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
         review_form = forms.ReviewForm(request.POST, instance=review)
@@ -110,38 +135,16 @@ def review_edit(request, ticket_id):
     return render(request, 'www/review_edit.html', context=context)
 
 @login_required
-def ticket_edit(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    edit_form = forms.TicketForm(instance=ticket)
-    if request.method == 'POST':
-        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-        if edit_form.is_valid():
-            edited_ticket = edit_form.save(commit=False)
-            edited_ticket.user = request.user
-            edited_ticket.save()
-            return redirect('post')
-    context = {
-        'edit_form': edit_form,
-    }
-    return render(request, 'www/ticket_edit.html', context=context)
+def review_delete(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    ticket = get_object_or_404(Ticket, id=review.ticket_id)
 
-@login_required
-def flux(request):
-    return render(request, 'www/flux.html')
+    confirm = request.POST.get('confirm')
 
-@login_required
-def ticket_delete(request, ticket_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
-    delete_form = forms.TicketDeleteForm(instance=ticket)
-    if request.method == 'POST':
-        confirm = request.POST.get('confirm')
-        if confirm == 'Oui':
-            ticket.delete()
-            return redirect('post')
-        else:
-            return redirect('post')
-    context = {
-        'delete_form': delete_form,
-    }
-    return render(request, 'www/ticket_delete.html', context=context)
+    if confirm == 'oui':
+        ticket.delete()
+        return redirect('post')
+    elif confirm == 'non':
+        return redirect('post')
 
+    return render(request, 'www/review_delete.html', {'ticket': ticket, 'review': review})

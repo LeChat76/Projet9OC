@@ -1,0 +1,62 @@
+<!-- templates/www/ticket_edit.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'review.css' %}"> 
+<h3>Suppression d'une review</h2>
+<div id="container-review">
+    {% if review.user == request.user %}
+        <p><label>Le {{ review.time_created }}, vous avez publié une critique</label></p>
+    {% else %}
+        <p><label>Le {{ review.time_created }}, {{ request.user|capfirst }} a publié une critique</label></p>
+    {% endif %}
+    <p>
+        <label>{{ review.headline }} - {{ review.rating }}
+            <div class="rating-stars">
+                <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 3 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating >= 4 %}filled{% endif %}"></span>
+                <span class="star {% if post.rating == 5 %}filled{% endif %}"></span>
+            </div>
+        </label>
+        
+    {% if review.body %}
+        <p><label>{{ post.body }}</label></p>
+    {% endif %}
+    <div id="container-ticket">
+        {% if ticket.user == request.user %}
+            <p><label>Ticket - Vous</label> </p>
+        {% else %}
+            <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+        {% endif %}
+        <p><label>{{ ticket.title }}</label></p>
+        {% if ticket.description %}
+            <p><label>{{ ticket.description }}</label></p>
+        {% endif %}
+        {% if ticket.image %}
+            {% if ticket.image.url %}
+                <p>
+                    <img src="{{ ticket.image.url }}" alt="Ticket Image">
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <p><label id="label-confirmation">Etes vous sure de vouloir supprimer ce ticket?</label></p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-buttons">
+            <p>
+                <button type="submit" name="confirm" value="oui">Oui</button>
+                <button type="submit" name="confirm" value="non">Non</button>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock content %}

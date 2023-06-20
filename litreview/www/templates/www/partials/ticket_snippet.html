@@ -2,13 +2,13 @@
 
 <div id="container">
     {% if post.user == request.user %}
-        <p><label onmousedown="return false;">Ticket - Vous</label> </p>
+        <p><label>Ticket - Vous</label> </p>
     {% else %}
-        <p><label onmousedown="return false;">Ticket - {{ request.user|capfirst }}</label> </p>
+        <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
     {% endif %}
-    <p><label onmousedown="return false;">{{ post.title }}</label></p>
+    <p><label>{{ post.title }}</label></p>
     {% if post.description %}
-        <p><label onmousedown="return false;">{{ post.description }}</label></p>
+        <p><label>{{ post.description }}</label></p>
     {% endif %}
     {% if post.image %}
         {% if post.image.url %}

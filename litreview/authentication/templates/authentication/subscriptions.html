@@ -1,0 +1,25 @@
+<!-- templates/www/followers.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'subscriptions.css' %}"> 
+
+    <h3>Suivre d'autres utilisateurs</h3>
+    <div id="container">
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+        {% for user in listAvailable %}
+            <label>{{ user }}</label>
+        {% endfor %}
+        </form>
+    </div>
+
+{% endblock content %}
+

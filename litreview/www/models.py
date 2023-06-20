@@ -46,7 +46,7 @@ class Review(models.Model):
             MaxValueValidator(5),],
     )
     headline = models.CharField(max_length=128)
-    body = models.CharField(
+    body = models.TextField(
         max_length=8192,
         blank=True, # body can be empty
     )
