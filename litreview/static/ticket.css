@@ -16,7 +16,7 @@ h3 {
     border: 1px solid #ccc;
 }
 
-#container-ticket input[type="text"], textarea[name="description"] {
+#container-ticket input[type="text"], input[type="submit"], textarea[name="description"] {
     width: 600px;
     margin : 10px;
     text-align : left;
@@ -25,6 +25,8 @@ h3 {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    resize: none;
 }
 
 #container-ticket img {
@@ -35,7 +37,7 @@ h3 {
     margin: auto;
 }
 
-#container-ticket button[type="submit"] {
+#container-ticket button[type="submit"], input[type="submit"] {
     text-align: center;
     background-color: #4CAF50;
     color: white;
@@ -55,4 +57,10 @@ h3 {
 
 #id_rating label {
     margin-right: 80px;
+}
+
+#label-confirmation {
+    display: flex;
+    justify-content: center;
+    color: red;
 }

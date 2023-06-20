@@ -8,9 +8,9 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'ticket.css' %}"> 
+<link rel="stylesheet" href="{% static 'review.css' %}"> 
 <h3>Modifier la review</h2>
-<div id="container-ticket">
+<div id="container-review">
     <form method="post" enctype="multipart/form-data">
         {{ edit_form.as_p }}
         {% if edit_form.instance.image %}

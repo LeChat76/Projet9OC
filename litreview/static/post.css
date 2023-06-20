@@ -14,7 +14,7 @@ a {
     border: 1px solid #ccc;
 }
 
-#modify-ticket {
+#post-button {
     text-align: center;
     width: 300px;
     padding: 10px;
@@ -47,13 +47,13 @@ a {
 
 .star {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url("images/empty-star.png");
+    width: 30px;
+    height: 30px;
+    background-image: url("/static/images/filled-star.png");
     background-repeat: no-repeat;
 }
 
 .filled {
-    background-image: url("images/filled-star.png");
+    background-image: url("/static/images/empty-star2.png");
 }
 

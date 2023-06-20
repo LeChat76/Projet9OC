@@ -79,11 +79,11 @@ def new_review(request):
     }
     return render(request, 'www/review.html', context=context)
 
-@login_required
-def review_detail(request, review_id):
-    review = get_object_or_404(Review, id=review_id)
-    ticket_id = review.ticket
-    return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
+# @login_required
+# def review_detail(request, review_id):
+#     review = get_object_or_404(Review, id=review_id)
+#     ticket_id = review.ticket
+#     return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
    
 @login_required
 def review_edit(request, ticket_id):
@@ -128,3 +128,20 @@ def ticket_edit(request, ticket_id):
 @login_required
 def flux(request):
     return render(request, 'www/flux.html')
+
+@login_required
+def ticket_delete(request, ticket_id):
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    delete_form = forms.TicketDeleteForm(instance=ticket)
+    if request.method == 'POST':
+        confirm = request.POST.get('confirm')
+        if confirm == 'Oui':
+            ticket.delete()
+            return redirect('post')
+        else:
+            return redirect('post')
+    context = {
+        'delete_form': delete_form,
+    }
+    return render(request, 'www/ticket_delete.html', context=context)
+

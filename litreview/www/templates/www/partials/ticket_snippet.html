@@ -19,8 +19,8 @@
     {% endif %}
     <div class="container-buttons">
         <p>
-            <a href="{% url 'ticket_edit' post.id %}" id="modify-ticket">Modifier</a>
-            <a href="{% url 'ticket_edit' post.id %}" id="modify-ticket">Supprimer</a>
+            <a href="{% url 'ticket_edit' post.id %}" id="post-button">Modifier</a>
+            <a href="{% url 'ticket_delete' post.id %}" id="post-button">Supprimer</a>
         </p>
     </div>
 

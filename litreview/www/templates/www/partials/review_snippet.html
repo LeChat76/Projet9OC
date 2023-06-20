@@ -1,11 +1,13 @@
 <!-- templates/www/partials/review_snippet.html -->
 
-{% load static %}
-
 <div id="container">
-    <p><label>Le {{ post.time_created }}, vous avez publié une critique</label></p>
+    {% if post.ticket.user == request.user %}
+        <p><label onmousedown="return false;">Le {{ post.time_created }}, vous avez publié une critique</label></p>
+    {% else %}
+        <p><label onmousedown="return false;">Le {{ post.time_created }}, {{ request.user|capfirst }} a publié une critique</label></p>
+    {% endif %}
     <p>
-        <label onmousedown="return false;">{{ post.headline }} - 
+        <label onmousedown="return false;">{{ post.headline }} - {{ post.rating }}
             <div class="rating-stars">
                 <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
                 <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
@@ -14,7 +16,6 @@
                 <span class="star {% if post.rating == 5 %}filled{% endif %}"></span>
             </div>
         </label>
-    <!-- <img src="{% static 'images/empty-star.png' %}" alt="Empty Star"> -->
         
     {% if post.body %}
         <p><label onmousedown="return false;">{{ post.body }}</label></p>
@@ -39,8 +40,8 @@
     </div>
     <div class="container-buttons">
         <p>
-            <a href="{% url 'review_edit' post.ticket.id %}" id="modify-ticket">Modifier</a>
-            <a href="{% url 'review_edit' post.ticket.id %}" id="modify-ticket">Supprimer</a>
+            <a href="{% url 'review_edit' post.ticket.id %}" id="post-button">Modifier</a>
+            <a href="{% url 'review_edit' post.ticket.id %}" id="post-button">Supprimer</a>
         </p>
     </div>
 </div>
