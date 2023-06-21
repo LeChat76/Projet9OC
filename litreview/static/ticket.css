@@ -64,3 +64,9 @@ h3 {
     justify-content: center;
     color: red;
 }
+
+.disabled-button {
+    opacity: 0.5; /* Réduit l'opacité du bouton */
+    pointer-events: none; /* Désactive les événements de clic sur le bouton */
+  }
+  
