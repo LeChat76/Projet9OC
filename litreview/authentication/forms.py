@@ -3,7 +3,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserFollows
+from . import models
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, label="Nom d'utilisateur")
@@ -68,16 +68,12 @@ class SignupForm(UserCreationForm):
 #             widget=forms.SelectMultiple(attrs={'class': 'form-control'})
 #         )
 
-class SubscriptionsForm(forms.Form):
-
-    listAvailable = forms.ChoiceField()
-    listFollowers = forms.CharField()
-    listFollowed = forms.CharField()
+class SubscriptionsForm(forms.ModelForm):
 
     class Meta:
-        model = UserFollows
-        fields = ['Followed_user_id']
-        labels = {'Followed_user_id': 'Abonnements'}
+        model = models.UserFollows
+        fields = ['followed_user']
+        labels = {'followed_user': 'Abonnements'}
 
 
 

@@ -48,18 +48,45 @@ def signup_page(request):
 def subscriptions(request):
     form = forms.SubscriptionsForm()
     user = request.user
+    
     listFollowed = UserFollows.objects.filter(user=user).values_list('followed_user', flat=True)
+    followed_users = get_user_model().objects.filter(id__in=listFollowed)
     listFollowers = UserFollows.objects.filter(followed_user=user).values_list('user_id', flat=True)
-    listAvailable = get_user_model().objects.exclude(id__in=listFollowed).exclude(id=user.id).values_list('id', flat=True)
+    followers_users = get_user_model().objects.filter(id__in=listFollowers)
+    available_users = get_user_model().objects.exclude(
+        id__in=listFollowed
+        ).exclude(
+        id=user.id
+        ).exclude(
+        username=user.username
+    )
+
     if request.method == 'POST':
-        form = forms.SubscriptionsForm(request.POST)
-        
+        # adding an user to follow
+        if 'add_subscription' in request.POST:
+            followed_user_id = request.POST['followed_user']
+            followed_user = get_user_model().objects.get(id=followed_user_id)
+            UserFollows.objects.create(user=request.user, followed_user=followed_user)
+            return redirect('subscriptions')
+        if 'remove_subscription' in request.POST:
+            followed_user_id = request.POST['remove_subscription']
+            print('FOLLOWED', followed_user_id)
+            if followed_user_id:
+                followed_user_id = int(followed_user_id)
+                followed_user = get_user_model().objects.get(id=followed_user_id)
+                UserFollows.objects.filter(user=request.user, followed_user=followed_user).delete()
+                return redirect('subscriptions')
+    
     context = {
-            'listFollowed': listFollowed,
-            'listFollowers': listFollowers,
-            'listAvailable': listAvailable,
+        'followed_users': followed_users,
+        'followers_users': followers_users,
+        'available_users': available_users,
+        'form': form,
     }
-    return render(request, 'authentication/subscriptions.html', {'forms': form, 'listFollowed': listFollowed, 'listFollowers': listFollowers, 'listAvailable': listAvailable})
+    
+    return render(request, 'authentication/subscriptions.html', context)
+
+
 
 
 # def new_ticket(request):
