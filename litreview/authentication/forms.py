@@ -40,57 +40,12 @@ class SignupForm(UserCreationForm):
         
         return password2
  
-# class SubscriptionsForm(forms.Form):
+class SubscriptionsForm(forms.Form):
 
-#     def __init__(self, user, *args, **kwargs):
-#         User = get_user_model()
+    followed_user = forms.CharField(label=False, required=True, widget=forms.TextInput(attrs={'class': 'available-container-field'}))
 
-#         super().__init__(*args, **kwargs)
-#         excluded_users = UserFollows.objects.filter(user=user).values_list('followed_user', flat=True)
-#         available_users = User.objects.exclude(id__in=excluded_users)
-#         followed_users = UserFollows.objects.filter(followed_user=user).values_list('user', flat=True)
-
-#         self.fields['listAvailableUsers'] = forms.ModelMultipleChoiceField(
-#             queryset=available_users,
-#             label='Utilisateurs disponibles',
-#             widget=forms.SelectMultiple(attrs={'class': 'form-control'})
-#         )
-
-#         self.fields['listFollowedUsers'] = forms.ModelMultipleChoiceField(
-#             queryset=User.objects.filter(id__in=followed_users),
-#             label='Utilisateurs suivis',
-#             widget=forms.SelectMultiple(attrs={'class': 'form-control'})
-#         )
-
-#         self.fields['listFollowers'] = forms.ModelMultipleChoiceField(
-#             queryset=User.objects.filter(id__in=UserFollows.objects.filter(followed_user=user).values_list('user')),
-#             label='Utilisateurs qui vous suivent',
-#             widget=forms.SelectMultiple(attrs={'class': 'form-control'})
-#         )
-
-class SubscriptionsForm(forms.ModelForm):
 
     class Meta:
         model = models.UserFollows
         fields = ['followed_user']
         labels = {'followed_user': 'Abonnements'}
-
-
-
-# class TicketForm(forms.ModelForm):
-
-#     def __init__(self, *args, **kwargs):
-#         super(TicketForm, self).__init__(*args, **kwargs)
-#         if self.instance and self.instance.image:
-#             self.fields['image'].label = ''
-
-#     class Meta:
-#         model = models.Ticket
-#         fields = [
-#             'title',
-#             'description',
-#             'image'
-#         ]
-#         labels = {
-#             'title': 'Titre',
-#         }

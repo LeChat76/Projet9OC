@@ -14,6 +14,27 @@ label {
     user-select: none;
 }
 
+#container-subscriptions p {
+    display: flex;
+    justify-content: center;
+}
+
+#button-radio {
+    display: flex;
+    margin : 3%;
+    border-radius: 5px;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+}
+
+#option1:checked ~ #available-container {
+    display: none;
+  }
+  
+  #option2:checked ~ #input-container {
+    display: none;
+  }
+
 #container-subscriptions {
     margin : 2%;
     margin-left : auto;
@@ -50,6 +71,17 @@ select {
     border-radius: 10px;
 }
 
+input[type="text"] {
+    text-align: center;
+    background: #F2F2F2;
+    padding: 8px;
+    margin-right: 55px;
+    margin-left: 30px;
+    width: 280px;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;  
+}
+
 #followed-user-container {
     display: flex;
     align-items: center;
@@ -60,6 +92,7 @@ select {
     text-align: center;
     background: #F2F2F2;
     padding: 8px;
+    font-size: 14px;
     margin-right: 55px;
     width: 310px;
     border: 1px solid #CCCCCC;
@@ -71,6 +104,7 @@ select {
     text-align: center;
     background: #F2F2F2;
     padding: 8px;
+    font-size: 14px;
     margin-right: 55px;
     width: 600px;
     border: 1px solid #CCCCCC;
@@ -88,7 +122,7 @@ select {
     padding: 8px;
     margin-right: 60px;
     margin-left: 30px;
-    /* font-size: 14px; */
+    font-size: 14px;
     width: 280px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;

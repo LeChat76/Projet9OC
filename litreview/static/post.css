@@ -49,11 +49,14 @@ a {
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url("/static/images/filled-star.png");
+    background-image: url("/static/images/empty-star.png");
     background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  
 }
 
 .filled {
-    background-image: url("/static/images/empty-star2.png");
+    background-image: url("/static/images/filled-star.png");
 }
 

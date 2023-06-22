@@ -48,7 +48,9 @@ def signup_page(request):
 def subscriptions(request):
     form = forms.SubscriptionsForm()
     user = request.user
-    
+    context = {}
+    request_user_no_result = ''
+
     listFollowed = UserFollows.objects.filter(user=user).values_list('followed_user', flat=True)
     followed_users = get_user_model().objects.filter(id__in=listFollowed)
     listFollowers = UserFollows.objects.filter(followed_user=user).values_list('user_id', flat=True)
@@ -62,15 +64,34 @@ def subscriptions(request):
     )
 
     if request.method == 'POST':
-        # adding an user to follow
+        # adding an user to follow from list
         if 'add_subscription' in request.POST:
             followed_user_id = request.POST['followed_user']
             followed_user = get_user_model().objects.get(id=followed_user_id)
             UserFollows.objects.create(user=request.user, followed_user=followed_user)
             return redirect('subscriptions')
+        
+        # adding an user to follow from input
+        if 'add_subscription2' in request.POST:
+            followed_user_name = request.POST['followed_user_name']
+            try:
+                requested_user = get_user_model().objects.get(username__iexact=followed_user_name)
+            except:
+                request_user_no_result = 'Aucun utilisateur trouvé'
+            else:
+                if requested_user not in  available_users:
+                    request_user_no_result = 'Vous suivez déjà cet utilisateur'
+                else:
+                    for available_user in available_users:           
+                        if requested_user == available_user:
+                            print('YES/USER : ', requested_user) 
+                            UserFollows.objects.create(user=request.user, followed_user=available_user)
+                            request_user_no_result = ''
+            return redirect('subscriptions')
+                
+        # remove user from click on button
         if 'remove_subscription' in request.POST:
             followed_user_id = request.POST['remove_subscription']
-            print('FOLLOWED', followed_user_id)
             if followed_user_id:
                 followed_user_id = int(followed_user_id)
                 followed_user = get_user_model().objects.get(id=followed_user_id)
@@ -82,22 +103,8 @@ def subscriptions(request):
         'followers_users': followers_users,
         'available_users': available_users,
         'form': form,
+        'request_user_no_result': request_user_no_result,
     }
-    
+    print('CONTEXT', context)
+
     return render(request, 'authentication/subscriptions.html', context)
-
-
-
-
-# def new_ticket(request):
-#     if request.method == 'POST':
-#         form = forms.TicketForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             ticket = form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
-#             ticket.user = request.user # associate user to this picture upload
-#             ticket.save() # and finaly save
-#             return redirect('post')
-#     else:
-#         form = forms.TicketForm()
-    
-#     return render(request, 'www/ticket.html', {'form': form})
