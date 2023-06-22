@@ -31,18 +31,15 @@ urlpatterns = [
     path('logout/', authentication.views.logout_user, name='logout'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('ticket/', www.views.new_ticket, name='new_ticket'),
-    # path('ticket/<int:ticket_id>/', www.views.ticket_detail, name='ticket_detail'),
     path('ticket/<int:ticket_id>/edit/', www.views.ticket_edit, name='ticket_edit'),
     path('ticket/<int:ticket_id>/delete/', www.views.ticket_delete, name='ticket_delete'),
     path('post/', www.views.post, name='post'),
     path('review/', www.views.new_review, name='new_review'),
-    # path('review/<int:review_id>/', www.views.review_detail, name='review_detail'),
     path('review/<int:review_id>/edit/', www.views.review_edit, name='review_edit'),
     path('review/<int:review_id>/delete/', www.views.review_delete, name='review_delete'),
     path('subscriptions/', authentication.views.subscriptions, name='subscriptions'),
     path('flux/', www.views.flux, name='flux'),
-    # path('ticket_snippet/', www.templates.www.partials, name='ticket_snippet'),
-    # path('review_snippet/', www.templates.www.partials, name='review_snippet'),
+    path('ticket/<int:ticket_id>/create_review/', www.views.ticket_create_review, name='ticket_create_review'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

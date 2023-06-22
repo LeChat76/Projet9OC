@@ -1,0 +1,95 @@
+input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"], textarea[name="body"] {
+    text-align : center;
+    margin : 10px;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#container-review input[type="text"], textarea[name="description"], textarea[name="body"] {
+    width: 600px;
+    text-align : left;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    resize: none;
+}
+
+#container-review {
+    margin : 2%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 680px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 0px 50px 50px;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+}
+
+#container-review img {
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+#id_rating {
+    display: flex;
+    flex-direction: row;
+}
+  
+#id_rating label {
+    margin-right: 80px;
+}
+
+#container-review button[type="submit"] {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-top : 10px;
+    width: 630px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    font-size : 36px;
+}
+
+.star {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("LitReview/static/images/empty-star2.png");
+    background-repeat: no-repeat;
+}
+
+.filled {
+    background-image: url("LitReview/static/images/filled-star.png");
+}
+
+#label-confirmation {
+    display: flex;
+    justify-content: center;
+    color: red;
+}
+
+#container-ticket {
+    margin : 2%;
+    margin-left : 0;
+    width: 580px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 0px 50px 50px;
+    /* justify-content: space-around; */
+    border: 1px solid #ccc;
+}

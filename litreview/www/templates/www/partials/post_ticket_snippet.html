@@ -1,10 +1,10 @@
-<!-- templates/www/partials/ticket_snippet.html -->
+<!-- templates/www/partials/post_ticket_snippet.html -->
 
 <div id="container">
     {% if post.user == request.user %}
         <p><label>Ticket - Vous</label> </p>
     {% else %}
-        <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+        <p><label>Ticket - {{ post.user }}</label> </p>
     {% endif %}
     <p><label>{{ post.title }}</label></p>
     {% if post.description %}
@@ -13,14 +13,14 @@
     {% if post.image %}
         {% if post.image.url %}
             <p>
-                <img src="{{ post.image.url }}" alt="Ticket Image">
+                <img src="{{ post.image.url }}" alt="Ticket Image" ondragstart="return false;">
             </p>
         {% endif %}
     {% endif %}
     <div class="container-buttons">
         <p>
-            <a href="{% url 'ticket_edit' post.id %}" id="post-button">Modifier</a>
-            <a href="{% url 'ticket_delete' post.id %}" id="post-button">Supprimer</a>
+            <a href="{% url 'ticket_edit' post.id %}" id="post-button" ondragstart="return false;">Modifier</a>
+            <a href="{% url 'ticket_delete' post.id %}" id="post-button" ondragstart="return false;">Supprimer</a>
         </p>
     </div>
 

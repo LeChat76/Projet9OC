@@ -1,0 +1,27 @@
+<!-- templates/www/partials/flux_ticket_snippet.html -->
+
+<div id="container">
+    <!-- <p>FLU : {{ flu.user.username }} / USER : {{ request.user }} / TICKETID : {{ flu.id }}</p> -->
+    {% if flu.user == request.user %}
+        <p><label>Ticket - Vous</label> </p>
+    {% else %}
+        <p><label>Ticket - {{ flu.user.username|capfirst }}</label> </p>
+    {% endif %}
+    <p><label>{{ flu.title }}</label></p>
+    {% if flu.description %}
+        <p><label>{{ flu.description }}</label></p>
+    {% endif %}
+    {% if flu.image %}
+        {% if flu.image.url %}
+            <p>
+                <img src="{{ flu.image.url }}" alt="Ticket Image" ondragstart="return false;">
+            </p>
+        {% endif %}
+    {% endif %}
+    <div id="container-button">
+        <p>
+            <a href="{% url 'ticket_create_review' flu.id %}" id="flux-button" ondragstart="return false;">Créer une critique</a>
+        </p>
+    </div>
+
+</div>

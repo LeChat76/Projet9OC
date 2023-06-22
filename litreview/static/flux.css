@@ -4,6 +4,25 @@
     align-items: center;
 }
 
+#container-button {
+    display: flex;
+    justify-content: right;
+    align-items: right; 
+}
+
+#flux-button {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 30px;
+}
+
 #new-ticket, #new-review{
     text-align: center;
     width: 300px;
@@ -17,3 +36,49 @@
     cursor: pointer;
     display: inline-block;
 }
+
+#container {
+    margin : 2%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 680px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 20px 20px 50px;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+}
+
+#container img {
+    width: auto;
+    max-width: 200px;
+    height: auto;
+    display: inline-block;
+    margin: auto;
+}
+
+#container-ticket {
+    margin : 2%;
+    margin-left : 0;
+    width: 580px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 10px 20px 20px 50px;
+    border: 1px solid #ccc;
+}
+
+.star {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("/static/images/empty-star.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.filled {
+    background-image: url("/static/images/filled-star.png");
+}
+
+

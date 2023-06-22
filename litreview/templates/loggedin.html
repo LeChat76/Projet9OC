@@ -9,13 +9,13 @@
 </head>
 <body>
     <div id="header-loggedin">
-        <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview">
+        <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview" ondragstart="return false;">
         <h1>LitReview</h1>
         <div id="container-loggedin">
-            <a href="{% url 'flux' %}">Flux</a>
-            <a href="{% url 'post' %}">Posts</a>
-            <a href="{% url 'subscriptions' %}">Abonnements</a>
-            <a href="{% url 'logout' %}">Se déconnecter</a>
+            <a href="{% url 'flux' %}" ondragstart="return false;">Flux</a>
+            <a href="{% url 'post' %}" ondragstart="return false;">Posts</a>
+            <a href="{% url 'subscriptions' %}" ondragstart="return false;">Abonnements</a>
+            <a href="{% url 'logout' %}" ondragstart="return false;">Se déconnecter</a>
         </div>
     </div>
     <p>Vous êtes connecté en tant que <a href="{% url 'subscriptions' %}">{{ request.user|capfirst }}.</a></p>

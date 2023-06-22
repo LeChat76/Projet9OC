@@ -1,13 +1,9 @@
-<!-- templates/www/partials/review_snippet.html -->
+<!-- templates/www/partials/post_review_snippet.html -->
 
 <div id="container">
-    {% if post.ticket.user == request.user %}
-        <p><label>Le {{ post.time_created }}, vous avez publié une critique</label></p>
-    {% else %}
-        <p><label>Le {{ post.time_created }}, {{ request.user|capfirst }} a publié une critique</label></p>
-    {% endif %}
+    <p><label>Le {{ post.time_created }}, vous avez publié une critique</label></p>
     <p>
-        <label>{{ post.headline }} - {{ post.rating }}
+        <label>{{ post.headline }} - {{ post.rating }}/5
             <div class="rating-stars">
                 <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
                 <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
@@ -21,10 +17,10 @@
         <p><label>{{ post.body }}</label></p>
     {% endif %}
     <div id="container-ticket">
-        {% if post.ticket.user == request.user %}
+        {% if post.user == post.ticket.user %}
             <p><label>Ticket - Vous</label> </p>
         {% else %}
-            <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+            <p><label>Ticket - {{ post.ticket.user }}</label> </p>
         {% endif %}
         <p><label>{{ post.ticket.title }}</label></p>
         {% if post.ticket.description %}
@@ -33,15 +29,15 @@
         {% if post.ticket.image %}
             {% if post.ticket.image.url %}
                 <p>
-                    <img src="{{ post.ticket.image.url }}" alt="Ticket Image">
+                    <img src="{{ post.ticket.image.url }}" alt="Ticket Image" ondragstart="return false;">
                 </p>
             {% endif %}
         {% endif %}
     </div>
     <div class="container-buttons">
         <p>
-            <a href="{% url 'review_edit' post.id %}" id="post-button">Modifier</a>
-            <a href="{% url 'review_delete' post.id %}" id="post-button">Supprimer</a>
+            <a href="{% url 'review_edit' post.id %}" id="post-button" ondragstart="return false;">Modifier</a>
+            <a href="{% url 'review_delete' post.id %}" id="post-button" ondragstart="return false;">Supprimer</a>
         </p>
     </div>
 </div>

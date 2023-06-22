@@ -1,0 +1,39 @@
+<!-- templates/www/ticket_create_review.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'ticket_create_review.css' %}"> 
+    <h3>Créer une critique</h3>
+    <div id="container-review">
+        <h4>Livre / Article</h4>
+        <form method="post" enctype="multipart/form-data">
+            <div id="container">
+                <!-- <p>FLU : {{ ticket.user.username }} / USER : {{ request.user }} / TICKETID : {{ flu.id }}</p> -->
+                {% if ticket.user == request.user %}
+                    <p><label>Ticket - Vous</label> </p>
+                {% else %}
+                    <p><label>Ticket - {{ ticket.user.username|capfirst }}</label> </p>
+                {% endif %}
+                <p><label>{{ flu.title }}</label></p>
+                {% if ticket.description %}
+                    <p><label>{{ ticket.description }}</label></p>
+                {% endif %}
+                {% if ticket.image %}
+                    {% if ticket.image.url %}
+                        <p>
+                            <img src="{{ ticket.image.url }}" alt="Ticket Image" ondragstart="return false;">
+                        </p>
+                    {% endif %}
+                {% endif %}
+            {{ review_form.as_p }}
+            {% csrf_token %}
+            <button type="submit" >Envoyer</button>
+        </form>
+    </div>
+{% endblock content %}

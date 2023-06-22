@@ -15,4 +15,14 @@
     <a href="{% url 'new_review' %}" id="new-review">Créer une critique</a>
 </div>
 
+{% for flu in flux %}
+
+    {% if flu.content_type == 'TICKET' %}
+        {% include './partials/flux_ticket_snippet.html' %}
+    {% elif flu.content_type == 'REVIEW' %}
+        {% include './partials/flux_review_snippet.html' %}
+    {% endif %}
+
+{% endfor %}
+
 {% endblock content %}

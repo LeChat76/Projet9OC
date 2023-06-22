@@ -10,14 +10,14 @@
 
 <link rel="stylesheet" href="{% static 'post.css' %}"> 
 
-    {% for post in posts %}
+{% for post in posts %}
 
-        {% if post.content_type == 'TICKET' %}
-            {% include './partials/ticket_snippet.html' %}
-        {% elif post.content_type == 'REVIEW' %}
-            {% include './partials/review_snippet.html' %}
-        {% endif %}
+    {% if post.content_type == 'TICKET' %}
+        {% include './partials/post_ticket_snippet.html' %}
+    {% elif post.content_type == 'REVIEW' %}
+        {% include './partials/post_review_snippet.html' %}
+    {% endif %}
 
-    {% endfor %}
+{% endfor %}
     
 {% endblock content %}

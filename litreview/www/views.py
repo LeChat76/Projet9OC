@@ -4,23 +4,48 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . import forms
 from .models import Ticket, Review
+from authentication.models import UserFollows
 
 
-def get_users_viewable_reviews(user):
-    reviews = Review.objects.filter(user=user)
+def get_users_viewable_reviews(users):
+    if isinstance(users, list):
+        reviews = Review.objects.filter(user__in=users)
+    else:
+        reviews = Review.objects.filter(user=users)
+
     return reviews
 
-def get_users_viewable_tickets(user):
-    tickets = Ticket.objects.filter(user=user)
+
+
+def get_users_viewable_tickets(users):
+    if isinstance(users, list):
+        tickets = Ticket.objects.filter(user__in=users)
+    else:
+        tickets = Ticket.objects.filter(user=users)
+
     return tickets
 
-# @login_required
-# def home(request):
-#     return render(request, 'www/home.html')
 
 @login_required
 def flux(request):
-    return render(request, 'www/flux.html')
+    followed_users = UserFollows.objects.filter(user=request.user).values_list('followed_user', flat=True)
+    followed_users = list(followed_users) + [request.user.id]
+    print('TYPE : ',(type(followed_users)))
+    print('FOLLOWED_USERS : ', followed_users)
+    print('USER_ID : ', request.user.id)
+    reviews = get_users_viewable_reviews(list(followed_users))
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    tickets = get_users_viewable_tickets(list(followed_users))
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    flux = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+        reverse=True,
+    )
+
+    return render(request, 'www/flux.html', context={'flux': flux})
+
 
 @login_required
 def post(request):
@@ -102,12 +127,6 @@ def new_review(request):
         'review_form': review_form,
     }
     return render(request, 'www/review.html', context=context)
-
-# @login_required
-# def review_detail(request, review_id):
-#     review = get_object_or_404(Review, id=review_id)
-#     ticket_id = review.ticket
-#     return render(request, 'www/review_detail.html', {'review': review, 'ticket': ticket_id})
    
 @login_required
 def review_edit(request, review_id):
@@ -148,3 +167,23 @@ def review_delete(request, review_id):
         return redirect('post')
 
     return render(request, 'www/review_delete.html', {'ticket': ticket, 'review': review})
+
+@login_required
+def ticket_create_review(request, ticket_id):
+    review_form = forms.ReviewForm()
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == 'POST':
+        review_form = forms.ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+            return redirect('flux')
+    context = {
+        'ticket': ticket,
+        'review_form': review_form,
+
+    }
+    return render(request, 'www/ticket_create_review.html', context=context)

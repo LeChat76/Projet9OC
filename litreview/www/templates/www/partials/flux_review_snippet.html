@@ -1,0 +1,43 @@
+<!-- templates/www/partials/flux_review_snippet.html -->
+
+<div id="container">
+    <!-- <p>FLU : {{ flu.user.username }} / USER : {{ request.user }}</p> -->
+    {% if flu.user == request.user %}
+        <p><label>Ticket - Vous</label> </p>
+        <p><label>Le {{ flu.time_created }}, vous avez publié une critique</label></p>
+    {% else %}
+        <p><label>Le {{ flu.time_created }}, {{ flu.user.username|capfirst }} a publié une critique</label></p>
+    {% endif %}
+    <p>
+        <label>{{ flu.headline }} - {{ flu.rating }}/5
+            <div class="rating-stars">
+                <span class="star {% if flu.rating >= 1 %}filled{% endif %}"></span>
+                <span class="star {% if flu.rating >= 2 %}filled{% endif %}"></span>
+                <span class="star {% if flu.rating >= 3 %}filled{% endif %}"></span>
+                <span class="star {% if flu.rating >= 4 %}filled{% endif %}"></span>
+                <span class="star {% if flu.rating == 5 %}filled{% endif %}"></span>
+            </div>
+        </label>
+        
+    {% if flu.body %}
+        <p><label>{{ flu.body }}</label></p>
+    {% endif %}
+    <div id="container-ticket">
+        {% if flu.ticket.user == request.user %}
+            <p><label>Ticket - Vous</label> </p>
+        {% else %}
+            <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+        {% endif %}
+        <p><label>{{ flu.ticket.title }}</label></p>
+        {% if flu.ticket.description %}
+            <p><label>{{ flu.ticket.description }}</label></p>
+        {% endif %}
+        {% if flu.ticket.image %}
+            {% if flu.ticket.image.url %}
+                <p>
+                    <img src="{{ flu.ticket.image.url }}" alt="Ticket Image" ondragstart="return false;">
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
