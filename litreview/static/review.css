@@ -14,6 +14,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
     background-color: #f2f2f2;
     border-radius: 5px;
     font-family: Arial, sans-serif;
+    font-size: 14px;
     resize: none;
 }
 
@@ -90,6 +91,19 @@ h3 {
     background-color: #f2f2f2;
     border-radius: 5px;
     padding : 10px 0px 50px 50px;
-    /* justify-content: space-around; */
     border: 1px solid #ccc;
+}
+
+#container-ticket-no-same-creator input[type="text"] textarea {
+    border: none;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+    /* pointer-events: none; */
+}
+
+#container-ticket-no-same-creator label, img{
+    border: none;
+    cursor: not-allowed;
+    pointer-events: none;
+    user-select: none;
 }

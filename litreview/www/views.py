@@ -142,24 +142,32 @@ def review_edit(request, review_id):
         same_creator = False
 
     if request.method == 'POST':
-        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-        review_form = forms.ReviewForm(request.POST, instance=review)
-        if all([edit_form.is_valid(), review_form.is_valid()]):
-            edited_ticket = edit_form.save(commit=False)
-            edited_ticket.user = request.user
-            edited_ticket.save()
-            review = review_form.save(commit=False)
-            review.ticket = edited_ticket
-            review.user = request.user
-            review.save()
-            return redirect('post')
+        if same_creator:
+            edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+            review_form = forms.ReviewForm(request.POST, instance=review)
+            if all([edit_form.is_valid(), review_form.is_valid()]):
+                edited_ticket = edit_form.save(commit=False)
+                edited_ticket.user = request.user
+                edited_ticket.save()
+                review = review_form.save(commit=False)
+                review.ticket = edited_ticket
+                review.user = request.user
+                review.save()
+                return redirect('post')
+        else:
+            review_form = forms.ReviewForm(request.POST, instance=review)
+            if review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.save()
+                return redirect('post')
     context = {
         'edit_form': edit_form,
         'review_form': review_form,
         'same_creator': same_creator,
     }
 
-    print('SAME_CREATOR : ', same_creator)
+    # print('SAME_CREATOR : ', same_creator)
 
     return render(request, 'www/review_edit.html', context=context)
 
@@ -171,7 +179,8 @@ def review_delete(request, review_id):
     confirm = request.POST.get('confirm')
 
     if confirm == 'oui':
-        ticket.delete()
+        review.delete()
+        # ticket.delete()
         return redirect('post')
     elif confirm == 'non':
         return redirect('post')

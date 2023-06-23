@@ -1,4 +1,4 @@
-<!-- templates/www/ticket_edit.html -->
+<!-- templates/www/review_delete.html -->
 
 <!DOCTYPE html>
 
@@ -34,7 +34,7 @@
         {% if ticket.user == request.user %}
             <p><label>Ticket - Vous</label> </p>
         {% else %}
-            <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+            <p><label>Ticket - {{ ticket.user|capfirst }}</label> </p>
         {% endif %}
         <p><label>{{ ticket.title }}</label></p>
         {% if ticket.description %}

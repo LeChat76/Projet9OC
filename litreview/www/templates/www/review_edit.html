@@ -21,22 +21,23 @@
                 </div>
             {% endif %}
         {% else %}
-            {% if edit_form.user == request.user %}
-                <p><label>Ticket - Vous</label> </p>
-            {% else %}
-                <p><label>Ticket - {{ edit_form.user }}</label> </p>
-            {% endif %}
-            <p><label>{{ edit_form.title }}</label></p>
-            {% if edit_form.description %}
-                <p><label ondragstart="return false;">{{ edit_form.description }}</label></p>
-            {% endif %}
-            {% if edit_form.image %}
-                {% if edit_form.image_url %}
-                    <p>
-                    <img src="{{ edit_form.image_url }}" alt="Ticket Image" ondragstart="return false;">
-                    </p>
+            <div id="container-ticket-no-same-creator">
+                {% if edit_form.instance.user == request.user %}
+                    <p><label>Ticket - Vous</label></p>
+                {% else %}
+                    <p><label>Ticket - {{ edit_form.instance.user }}</label></p>
                 {% endif %}
-            {% endif %}
+                <p><label>{{ edit_form.title }}</label></p>
+                {% if edit_form.description %}
+                    <p><label>{{ edit_form.description }}</label></p>
+                {% endif %}
+                {% if edit_form.instance.image %}
+                    <div class="form-field">
+                        <label>Image actuelle:</label>
+                        <img src="{{ edit_form.instance.image.url }}" alt="Image actuelle">
+                    </div>
+                {% endif %}
+            </div>
         {% endif %}
         {% if review_form %}
             <div class="form-field">

@@ -52,7 +52,7 @@
                     {% endif %}
                 {% endfor %}
             {% else %}
-                <input type="text" name="followed_user_name" class="disabled-input">
+                <input type="text" name="followed_user_name" class="disabled-input" value = "Plus d'utilisateurs disponibles">
                 <button type="submit" name="add_subscription2" class="disabled-button">Envoyer</button>
                 {% for message in messages %}
                     {% if message.tags == 'error' %}

@@ -65,10 +65,11 @@ select {
     background: #F2F2F2;
     padding: 8px;
     margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 52px;
     width: 300px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;
+    font-size: 14px;
 }
 
 input[type="text"] {
@@ -80,6 +81,8 @@ input[type="text"] {
     width: 280px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;  
+    font-size: 14px;
+    font-family: Arial;
 }
 
 #followed-user-container, #follower-user-container {
@@ -124,7 +127,7 @@ input[type="text"] {
     background: #F2F2F2;
     padding: 8px;
     margin-right: 60px;
-    margin-left: 30px;
+    margin-left: 49px;
     font-size: 14px;
     width: 280px;
     border: 1px solid #CCCCCC;
