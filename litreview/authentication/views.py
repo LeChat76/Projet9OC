@@ -77,16 +77,15 @@ def subscriptions(request):
             try:
                 requested_user = get_user_model().objects.get(username__iexact=followed_user_name)
             except:
-                # request_user = 'Aucun utilisateur trouvé'
                 print('PAS TROUVE')
                 messages.error(request, 'Aucun utilisateur trouvé')
-                # print('REQUEST : ', request.message.ERROR)
             else:
-                if requested_user not in available_users:
-                    # request_user = 'Vous suivez déjà cet utilisateur'
+                if requested_user == request.user:
+                    print("C'est TOI! ;-)")
+                    messages.error(request, 'Vous VOUS suivez deja ;-)')
+                elif requested_user not in available_users:
                     print('DEJA SUIVI')
                     messages.error(request, 'Vous suivez déjà cet utilisateur')
-                    # print('REQUEST : ', request.message.ERROR)
                 else:
                     for available_user in available_users:           
                         if requested_user == available_user:
@@ -110,8 +109,5 @@ def subscriptions(request):
         'available_users': available_users,
         'form': form,
     }
-
-    # print('CONTEXT', context)
-    print('REQUEST : ', request)
 
     return render(request, 'authentication/subscriptions.html', context)
