@@ -27,7 +27,6 @@
         {% csrf_token %}
 
         <!-- Subscription -->
-        <h2>Suivre d'autres utilisateurs :</h2>
         {% if available_users %}
             <select name="followed_user">
             {% for user in available_users %}
@@ -46,11 +45,19 @@
         {% if available_users %}
             <input type="text" name="followed_user_name">
             <button type="submit" name="add_subscription2">Envoyer</button>
-            <p>{{ request_user_no_result }}</p>
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
         {% else %}
             <input type="text" name="followed_user_name" class="disabled-input">
             <button type="submit" name="add_subscription2" class="disabled-button">Envoyer</button>
-            <p>{{ request_user_no_result }}</p>
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
         {% endif %}
 
         <!-- Followed users-->

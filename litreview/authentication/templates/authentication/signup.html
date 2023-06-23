@@ -2,15 +2,21 @@
 
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'signup.css' %}"> 
 
 <form method="post">
     <div class="container-signup">
-        <h2><u>Inscrivez-vous</u>:</h2>
+        <h2>Inscrivez-vous</h2>
         {{ form.as_p }}
         {% csrf_token %}
-        <a href="{% url 'login' %}" id="return-signup">Retourner</a>
-        <input type="submit" value="S’inscrire"></input>
+        <div id="signup-container">
+            <a href="{% url 'login' %}" id="return-signup">Retourner</a>
+            <input type="submit" value="S’inscrire"></input>
+        </div>
 </form>
 
 {% endblock content %}

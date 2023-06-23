@@ -128,7 +128,7 @@ AUTH_USER_MODEL = 'authentication.User'
 
 LOGIN_URL = 'login'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'flux'
 
 MEDIA_URL = '/media/'  # download media from this folder
 MEDIA_ROOT = BASE_DIR.joinpath('media/')  # store media in that folder

@@ -70,7 +70,7 @@ def new_ticket(request):
             ticket = form.save(commit=False) # commit=False to NOT submit the save, we need to associate user before, see bellow
             ticket.user = request.user # associate user to this picture upload
             ticket.save() # and finaly save
-            return redirect('post')
+            return redirect('flux')
     else:
         form = forms.TicketForm()
     
@@ -121,7 +121,7 @@ def new_review(request):
             review.ticket = ticket # associate ticket to this review
             review.user = request.user # associate user to this review
             review.save() # and finaly save
-            return redirect('post')
+            return redirect('flux')
     context = {
         'ticket_form': ticket_form,
         'review_form': review_form,

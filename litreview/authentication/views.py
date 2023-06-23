@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .models import UserFollows
+from django.contrib import messages
 
 from . import forms
 
@@ -21,7 +22,7 @@ def login_page(request):
             )
             if user is not None:
                 login(request, user) # log into the server
-                return redirect('post')
+                return redirect('flux')
             else:
                 message = 'Identifiants invalides.'
     return render(
@@ -49,7 +50,6 @@ def subscriptions(request):
     form = forms.SubscriptionsForm()
     user = request.user
     context = {}
-    request_user_no_result = ''
 
     listFollowed = UserFollows.objects.filter(user=user).values_list('followed_user', flat=True)
     followed_users = get_user_model().objects.filter(id__in=listFollowed)
@@ -77,17 +77,23 @@ def subscriptions(request):
             try:
                 requested_user = get_user_model().objects.get(username__iexact=followed_user_name)
             except:
-                request_user_no_result = 'Aucun utilisateur trouvé'
+                # request_user = 'Aucun utilisateur trouvé'
+                print('PAS TROUVE')
+                messages.error(request, 'Aucun utilisateur trouvé')
+                # print('REQUEST : ', request.message.ERROR)
             else:
-                if requested_user not in  available_users:
-                    request_user_no_result = 'Vous suivez déjà cet utilisateur'
+                if requested_user not in available_users:
+                    # request_user = 'Vous suivez déjà cet utilisateur'
+                    print('DEJA SUIVI')
+                    messages.error(request, 'Vous suivez déjà cet utilisateur')
+                    # print('REQUEST : ', request.message.ERROR)
                 else:
                     for available_user in available_users:           
                         if requested_user == available_user:
-                            print('YES/USER : ', requested_user) 
+                            # print('YES/USER : ', requested_user) 
                             UserFollows.objects.create(user=request.user, followed_user=available_user)
-                            request_user_no_result = ''
             return redirect('subscriptions')
+        
                 
         # remove user from click on button
         if 'remove_subscription' in request.POST:
@@ -96,15 +102,16 @@ def subscriptions(request):
                 followed_user_id = int(followed_user_id)
                 followed_user = get_user_model().objects.get(id=followed_user_id)
                 UserFollows.objects.filter(user=request.user, followed_user=followed_user).delete()
-                return redirect('subscriptions')
+            return redirect('subscriptions')
     
     context = {
         'followed_users': followed_users,
         'followers_users': followers_users,
         'available_users': available_users,
         'form': form,
-        'request_user_no_result': request_user_no_result,
     }
-    print('CONTEXT', context)
+
+    # print('CONTEXT', context)
+    print('REQUEST : ', request)
 
     return render(request, 'authentication/subscriptions.html', context)
