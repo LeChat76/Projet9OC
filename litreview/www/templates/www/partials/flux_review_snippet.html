@@ -26,7 +26,7 @@
         {% if flu.ticket.user == request.user %}
             <p><label>Ticket - Vous</label> </p>
         {% else %}
-            <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
+            <p><label>Ticket - {{ flu.ticket.user|capfirst }}</label> </p>
         {% endif %}
         <p><label>{{ flu.ticket.title }}</label></p>
         {% if flu.ticket.description %}

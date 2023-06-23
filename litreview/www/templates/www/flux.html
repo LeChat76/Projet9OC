@@ -11,14 +11,16 @@
 <link rel="stylesheet" href="{% static 'flux.css' %}"> 
 
 <div id="container-flux-button">
-    <a href="{% url 'new_ticket' %}" id="new-ticket">Demander une critique</a>
-    <a href="{% url 'new_review' %}" id="new-review">Créer une critique</a>
+    <a href="{% url 'new_ticket' %}" id="new-ticket" ondragstart="return false">Demander une critique</a>
+    <a href="{% url 'new_review' %}" id="new-review" ondragstart="return false">Créer une critique</a>
 </div>
 
 {% for flu in flux %}
 
-    {% if flu.content_type == 'TICKET' %}
-        {% include './partials/flux_ticket_snippet.html' %}
+    {% if flu.content_type == 'TICKET_WR' %}
+        {% include './partials/flux_ticket_wr_snippet.html' %}
+    {% elif flu.content_type == 'TICKET_WOR' %}
+        {% include './partials/flux_ticket_wor_snippet.html' %}
     {% elif flu.content_type == 'REVIEW' %}
         {% include './partials/flux_review_snippet.html' %}
     {% endif %}

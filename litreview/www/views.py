@@ -1,5 +1,5 @@
 from itertools import chain
-from django.db.models import CharField, Value
+from django.db.models import CharField, Value, Case, When
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . import forms
@@ -12,31 +12,33 @@ def get_users_viewable_reviews(users):
         reviews = Review.objects.filter(user__in=users)
     else:
         reviews = Review.objects.filter(user=users)
-
     return reviews
-
-
 
 def get_users_viewable_tickets(users):
     if isinstance(users, list):
         tickets = Ticket.objects.filter(user__in=users)
     else:
         tickets = Ticket.objects.filter(user=users)
-
     return tickets
-
 
 @login_required
 def flux(request):
     followed_users = UserFollows.objects.filter(user=request.user).values_list('followed_user', flat=True)
     followed_users = list(followed_users) + [request.user.id]
-    print('TYPE : ',(type(followed_users)))
-    print('FOLLOWED_USERS : ', followed_users)
-    print('USER_ID : ', request.user.id)
+    # print('TYPE : ',(type(followed_users)))
+    # print('FOLLOWED_USERS : ', followed_users)
+    # print('USER_ID : ', request.user.id)
     reviews = get_users_viewable_reviews(list(followed_users))
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    tickets = get_users_viewable_tickets(list(followed_users))
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    tickets = get_users_viewable_tickets(list(followed_users)).annotate(
+        content_type=Case(
+            When(review__isnull=False, then=Value('TICKET_WR')),
+            default=Value('TICKET_WOR'),
+            output_field=CharField()
+        )
+    )
+
+    print('TICKETS : ', tickets)
 
     flux = sorted(
         chain(tickets, reviews),
@@ -134,6 +136,10 @@ def review_edit(request, review_id):
     review_form = forms.ReviewForm(instance=review)
     ticket = get_object_or_404(Ticket, id=review.ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
+    if ticket.user == review.user:
+        same_creator = True
+    else:
+        same_creator = False
 
     if request.method == 'POST':
         edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
@@ -150,7 +156,11 @@ def review_edit(request, review_id):
     context = {
         'edit_form': edit_form,
         'review_form': review_form,
+        'same_creator': same_creator,
     }
+
+    print('SAME_CREATOR : ', same_creator)
+
     return render(request, 'www/review_edit.html', context=context)
 
 @login_required

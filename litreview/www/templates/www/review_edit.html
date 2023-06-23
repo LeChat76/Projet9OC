@@ -1,4 +1,4 @@
-<!-- templates/www/ticket_edit.html -->
+<!-- templates/www/review_edit.html -->
 
 <!DOCTYPE html>
 
@@ -12,12 +12,31 @@
 <h3>Modifier la review</h2>
 <div id="container-review">
     <form method="post" enctype="multipart/form-data">
-        {{ edit_form.as_p }}
-        {% if edit_form.instance.image %}
-            <div class="form-field">
-                <label>Image actuelle:</label>
-                <img src="{{ edit_form.instance.image.url }}" alt="Image actuelle">
-            </div>
+        {% if same_creator %}
+            {{ edit_form.as_p }}
+            {% if edit_form.instance.image %}
+                <div class="form-field">
+                    <label>Image actuelle:</label>
+                    <img src="{{ edit_form.instance.image.url }}" alt="Image actuelle">
+                </div>
+            {% endif %}
+        {% else %}
+            {% if edit_form.user == request.user %}
+                <p><label>Ticket - Vous</label> </p>
+            {% else %}
+                <p><label>Ticket - {{ edit_form.user }}</label> </p>
+            {% endif %}
+            <p><label>{{ edit_form.title }}</label></p>
+            {% if edit_form.description %}
+                <p><label ondragstart="return false;">{{ edit_form.description }}</label></p>
+            {% endif %}
+            {% if edit_form.image %}
+                {% if edit_form.image_url %}
+                    <p>
+                    <img src="{{ edit_form.image_url }}" alt="Ticket Image" ondragstart="return false;">
+                    </p>
+                {% endif %}
+            {% endif %}
         {% endif %}
         {% if review_form %}
             <div class="form-field">
