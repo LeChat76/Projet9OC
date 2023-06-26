@@ -71,3 +71,11 @@ h3 {
     pointer-events: none; /* Désactive les événements de clic sur le bouton */
   }
   
+.left-text {
+    float: left;
+}
+  
+  .right-text {
+    float: right;
+    margin-right: 50px;
+}

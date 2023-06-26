@@ -11,12 +11,11 @@
 <link rel="stylesheet" href="{% static 'ticket.css' %}"> 
 <h3>Supprimer un ticket</h2>
 <div id="container-ticket">
-    {% if ticket.user == request.user %}
-        <p><label>Ticket - Vous</label> </p>
-    {% else %}
-        <p><label>Ticket - {{ request.user|capfirst }}</label> </p>
-    {% endif %}
-    <p><label>{{ ticket.title }}</label></p>
+    <p>
+        <span class="left-text">Vous avez publié une critique</span>
+        <span class="right-text">{{ ticket.time_created }}</span>
+    </p>
+    <p style="margin-top: 50px;"><label>{{ ticket.title }}</label></p>
     {% if ticket.description %}
         <p><label>{{ ticket.description }}</label></p>
     {% endif %}

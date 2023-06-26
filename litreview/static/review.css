@@ -109,3 +109,12 @@ h3 {
     pointer-events: none;
     user-select: none;
 }
+
+.left-text {
+    float: left;
+}
+  
+  .right-text {
+    float: right;
+    margin-right: 50px;
+}
