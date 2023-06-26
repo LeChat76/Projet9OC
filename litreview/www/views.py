@@ -2,6 +2,7 @@ from itertools import chain
 from django.db.models import CharField, Value, Case, When
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from . import forms
 from .models import Ticket, Review
 from authentication.models import UserFollows
@@ -81,32 +82,37 @@ def new_ticket(request):
 @login_required
 def ticket_edit(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    edit_form = forms.TicketForm(instance=ticket)
-    if request.method == 'POST':
-        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-        if edit_form.is_valid():
-            edited_ticket = edit_form.save(commit=False)
-            edited_ticket.user = request.user
-            edited_ticket.save()
-            return redirect('post')
-    context = {
-        'edit_form': edit_form,
-    }
-    return render(request, 'www/ticket_edit.html', context=context)
+    if request.user != ticket.user:
+        raise PermissionDenied
+    else:
+        edit_form = forms.TicketForm(instance=ticket)
+        if request.method == 'POST':
+            edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+            if edit_form.is_valid():
+                edited_ticket = edit_form.save(commit=False)
+                edited_ticket.user = request.user
+                edited_ticket.save()
+                return redirect('post')
+        context = {
+            'edit_form': edit_form,
+        }
+        return render(request, 'www/ticket_edit.html', context=context)
 
 @login_required
 def ticket_delete(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
+    if request.user != ticket.user:
+        raise PermissionDenied
+    else:
+        confirm = request.POST.get('confirm')
 
-    confirm = request.POST.get('confirm')
+        if confirm == 'oui':
+            ticket.delete()
+            return redirect('post')
+        elif confirm == 'non':
+            return redirect('post')
 
-    if confirm == 'oui':
-        ticket.delete()
-        return redirect('post')
-    elif confirm == 'non':
-        return redirect('post')
-
-    return render(request, 'www/ticket_delete.html', {'ticket': ticket})
+        return render(request, 'www/ticket_delete.html', {'ticket': ticket})
 
 @login_required
 def new_review(request):
@@ -133,59 +139,63 @@ def new_review(request):
 @login_required
 def review_edit(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-    review_form = forms.ReviewForm(instance=review)
-    ticket = get_object_or_404(Ticket, id=review.ticket_id)
-    edit_form = forms.TicketForm(instance=ticket)
-    if ticket.user == review.user:
-        same_creator = True
+    if request.user != review.user:
+        raise PermissionDenied
     else:
-        same_creator = False
-
-    if request.method == 'POST':
-        if same_creator:
-            edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-            review_form = forms.ReviewForm(request.POST, instance=review)
-            if all([edit_form.is_valid(), review_form.is_valid()]):
-                edited_ticket = edit_form.save(commit=False)
-                edited_ticket.user = request.user
-                edited_ticket.save()
-                review = review_form.save(commit=False)
-                review.ticket = edited_ticket
-                review.user = request.user
-                review.save()
-                return redirect('post')
+        review_form = forms.ReviewForm(instance=review)
+        ticket = get_object_or_404(Ticket, id=review.ticket_id)
+        edit_form = forms.TicketForm(instance=ticket)
+        if ticket.user == review.user:
+            same_creator = True
         else:
-            review_form = forms.ReviewForm(request.POST, instance=review)
-            if review_form.is_valid():
-                review = review_form.save(commit=False)
-                review.user = request.user
-                review.save()
-                return redirect('post')
-    context = {
-        'edit_form': edit_form,
-        'review_form': review_form,
-        'same_creator': same_creator,
-    }
+            same_creator = False
 
-    # print('SAME_CREATOR : ', same_creator)
+        if request.method == 'POST':
+            if same_creator:
+                edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+                review_form = forms.ReviewForm(request.POST, instance=review)
+                if all([edit_form.is_valid(), review_form.is_valid()]):
+                    edited_ticket = edit_form.save(commit=False)
+                    edited_ticket.user = request.user
+                    edited_ticket.save()
+                    review = review_form.save(commit=False)
+                    review.ticket = edited_ticket
+                    review.user = request.user
+                    review.save()
+                    return redirect('post')
+            else:
+                review_form = forms.ReviewForm(request.POST, instance=review)
+                if review_form.is_valid():
+                    review = review_form.save(commit=False)
+                    review.user = request.user
+                    review.save()
+                    return redirect('post')
+        context = {
+            'edit_form': edit_form,
+            'review_form': review_form,
+            'same_creator': same_creator,
+        }
 
-    return render(request, 'www/review_edit.html', context=context)
+        return render(request, 'www/review_edit.html', context=context)
 
 @login_required
 def review_delete(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-    ticket = get_object_or_404(Ticket, id=review.ticket_id)
+    if request.user != review.user:
+        raise PermissionDenied
+    else:
+        ticket = get_object_or_404(Ticket, id=review.ticket_id)
 
-    confirm = request.POST.get('confirm')
+        confirm = request.POST.get('confirm')
 
-    if confirm == 'oui':
-        review.delete()
-        # ticket.delete()
-        return redirect('post')
-    elif confirm == 'non':
-        return redirect('post')
+        if confirm == 'oui':
+            review.delete()
+            # ticket.delete()
+            return redirect('post')
+        elif confirm == 'non':
+            return redirect('post')
 
-    return render(request, 'www/review_delete.html', {'ticket': ticket, 'review': review})
+        return render(request, 'www/review_delete.html', {'ticket': ticket, 'review': review})
 
 @login_required
 def ticket_create_review(request, ticket_id):
