@@ -69,7 +69,7 @@ def subscriptions(request):
             followed_user_id = request.POST['followed_user']
             followed_user = get_user_model().objects.get(id=followed_user_id)
             UserFollows.objects.create(user=request.user, followed_user=followed_user)
-            return redirect('subscriptions')
+            # return redirect('subscriptions')
         
         # adding an user to follow from input
         if 'add_subscription2' in request.POST:

@@ -1,11 +1,11 @@
 <!-- templates/www/partials/post_ticket_snippet.html -->
 
 <div id="container">
-    {% if post.user == request.user %}
-        <p><label>Ticket - Vous</label> </p>
-    {% else %}
-        <p><label>Ticket - {{ post.user }}</label> </p>
-    {% endif %}
+    <p>
+        <span class="left-text">Vous avez publié un ticket</span>
+        <span class="right-text">{{ post.time_created }}</span>
+    </p>
+    <p style="margin-top: 50px;">
     <p><label>{{ post.title }}</label></p>
     {% if post.description %}
         <p><label>{{ post.description }}</label></p>

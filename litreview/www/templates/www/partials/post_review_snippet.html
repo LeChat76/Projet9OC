@@ -1,9 +1,12 @@
 <!-- templates/www/partials/post_review_snippet.html -->
 
 <div id="container">
-    <p><label>Le {{ post.time_created }}, vous avez publié une critique</label></p>
     <p>
-        <label>{{ post.headline }} - {{ post.rating }}/5
+        <span class="left-text">Vous avez publié une critique</span>
+        <span class="right-text">{{ post.time_created }}</span>
+    </p>
+    <p style="margin-top: 50px;">
+        <label>{{ post.headline }} - {{ post.rating }}/5</label>
             <div class="rating-stars">
                 <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
                 <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
@@ -12,7 +15,7 @@
                 <span class="star {% if post.rating == 5 %}filled{% endif %}"></span>
             </div>
         </label>
-        
+    </p>
     {% if post.body %}
         <p><label>{{ post.body }}</label></p>
     {% endif %}

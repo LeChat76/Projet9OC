@@ -56,3 +56,12 @@
     background-image: url("/static/images/filled-star.png");
 }
 
+.left-text {
+    float: left;
+}
+  
+  .right-text {
+    float: right;
+    margin-right: 30px;
+}
+

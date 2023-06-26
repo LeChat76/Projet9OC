@@ -1,13 +1,19 @@
-<!-- templates/www/partials/flux_ticket_snippet.html -->
+<!-- templates/www/partials/flux_ticket_wor_snippet.html -->
+<!-- wor = WithOut Review -->
 
 <div id="container">
-    <!-- <p>FLU : {{ flu.user.username }} / USER : {{ request.user }} / TICKETID : {{ flu.id }}</p> -->
     {% if flu.user == request.user %}
-        <p><label>Ticket - Vous</label> </p>
+        <p>
+            <span class="left-text">Vous avez publié une critique</span>
+            <span class="right-text">{{ flu.time_created }}</span>
+        </p>
     {% else %}
-        <p><label>Ticket - {{ flu.user.username|capfirst }}</label> </p>
+        <p>
+            <span class="left-text">{{ flu.user.username|capfirst }} a publié une critique</span>
+            <span class="right-text">{{ flu.time_created }}</span>
+        </p>
     {% endif %}
-    <p><label>{{ flu.title }}</label></p>
+    <p style="margin-top: 50px;"><label>{{ flu.title }}</label></p>
     {% if flu.description %}
         <p><label>{{ flu.description }}</label></p>
     {% endif %}

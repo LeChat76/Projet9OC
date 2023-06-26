@@ -13,7 +13,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
     text-align : left;
     background-color: #f2f2f2;
     border-radius: 5px;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     font-size: 14px;
     resize: none;
 }
@@ -68,14 +68,16 @@ h3 {
 
 .star {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url("LitReview/static/images/empty-star2.png");
+    width: 30px;
+    height: 30px;
+    background-image: url("/static/images/empty-star.png");
     background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .filled {
-    background-image: url("LitReview/static/images/filled-star.png");
+    background-image: url("/static/images/filled-star.png");
 }
 
 #label-confirmation {

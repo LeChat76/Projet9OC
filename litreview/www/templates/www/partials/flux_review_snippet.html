@@ -1,14 +1,18 @@
 <!-- templates/www/partials/flux_review_snippet.html -->
 
 <div id="container">
-    <!-- <p>FLU : {{ flu.user.username }} / USER : {{ request.user }}</p> -->
     {% if flu.user == request.user %}
-        <p><label>Ticket - Vous</label> </p>
-        <p><label>Le {{ flu.time_created }}, vous avez publié une critique</label></p>
+        <p>
+            <span class="left-text">Vous avez publié une critique</span>
+            <span class="right-text">{{ flu.time_created }}</span>
+        </p>
     {% else %}
-        <p><label>Le {{ flu.time_created }}, {{ flu.user.username|capfirst }} a publié une critique</label></p>
+        <p>
+            <span class="left-text">{{ flu.user.username|capfirst }} a publié une critique</span>
+            <span class="right-text">{{ flu.time_created }}</span>
+        </p>
     {% endif %}
-    <p>
+    <p style="margin-top: 50px;">
         <label>{{ flu.headline }} - {{ flu.rating }}/5
             <div class="rating-stars">
                 <span class="star {% if flu.rating >= 1 %}filled{% endif %}"></span>

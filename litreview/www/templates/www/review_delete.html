@@ -17,13 +17,13 @@
         <p><label>Le {{ review.time_created }}, {{ request.user|capfirst }} a publié une critique</label></p>
     {% endif %}
     <p>
-        <label>{{ review.headline }} - {{ review.rating }}
+        <label>{{ review.headline }} - {{ review.rating }}/5
             <div class="rating-stars">
-                <span class="star {% if post.rating >= 1 %}filled{% endif %}"></span>
-                <span class="star {% if post.rating >= 2 %}filled{% endif %}"></span>
-                <span class="star {% if post.rating >= 3 %}filled{% endif %}"></span>
-                <span class="star {% if post.rating >= 4 %}filled{% endif %}"></span>
-                <span class="star {% if post.rating == 5 %}filled{% endif %}"></span>
+                <span class="star {% if review.rating >= 1 %}filled{% endif %}"></span>
+                <span class="star {% if review.rating >= 2 %}filled{% endif %}"></span>
+                <span class="star {% if review.rating >= 3 %}filled{% endif %}"></span>
+                <span class="star {% if review.rating >= 4 %}filled{% endif %}"></span>
+                <span class="star {% if review.rating == 5 %}filled{% endif %}"></span>
             </div>
         </label>
         

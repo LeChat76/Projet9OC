@@ -1,7 +1,7 @@
 input[type="text"], input[type="password"], input[type="submit"], input[type="url"], textarea[name="description"], textarea[name="body"] {
     text-align : center;
-    margin : 10px;
-    width: 300px;
+    /* margin : 10px; */
+    width: 280px;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -9,11 +9,13 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
 }
 
 #container-review input[type="text"], textarea[name="description"], textarea[name="body"] {
-    width: 600px;
+    width: 610px;
     text-align : left;
+    margin-right: 15px;
     background-color: #f2f2f2;
     border-radius: 5px;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
+    font-size: 14px;
     resize: none;
 }
 
@@ -33,7 +35,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="ur
     width: auto;
     max-width: 300px;
     height: auto;
-    display: block;
+
     margin: auto;
 }
 
@@ -90,6 +92,5 @@ h3 {
     background-color: #f2f2f2;
     border-radius: 5px;
     padding : 10px 0px 50px 50px;
-    /* justify-content: space-around; */
     border: 1px solid #ccc;
 }

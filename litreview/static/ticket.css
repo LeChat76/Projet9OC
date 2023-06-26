@@ -25,7 +25,8 @@ h3 {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
+    font-size: 14px;
     resize: none;
 }
 
@@ -33,7 +34,7 @@ h3 {
     width: auto;
     max-width: 300px;
     height: auto;
-    display: block;
+    display: flex;
     margin: auto;
 }
 
