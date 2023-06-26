@@ -26,7 +26,7 @@ Finally, access the site by typing "http://127.0.0.1:8000/" in your favorite nav
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## How to use
-Once logged in, create an account by clicking on the *Register* button.  
+From the home page, create an account by clicking on the *Register* button.  
 Fill in the __username__, __password__ and __password verification__ (at least 8 characters, at least one uppercase letter and at least one number).
 <p>
  <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/d0a5b491-c8ca-40e7-afaa-6b66a9e81bdb">
