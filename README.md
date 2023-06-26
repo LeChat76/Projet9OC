@@ -40,7 +40,7 @@ From this page you can create a ticket or a review.
  <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/67705f30-c1d0-4246-9a4a-ecb7adc6a969">
 </p>
 
-You can select users to follow by going to the subscription section: click on the user name in the top left-hand corner or in the top right-hand menu "subscription".  
+You can select users to follow by going to the *subscription* menu: click on the user name in the top left-hand corner or in the top right-hand menu "subscription".  
 In that menu you can add users by selecting them in the list or by typing in the charfield zone. You can also remove users you follow, and you can see all users who follow you.
 
 <p>
@@ -53,8 +53,8 @@ You can see, edite or delete all of your ticket and review in the post menu.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Features
-To manage subscriptions, I've created a list selection in addition to manual entry (more practical for searching for people when you've just subscribed).  
-Access to html page by typing url is blocked for non authorized users (only creators can access to their own tickets or reviews for modifications and deletion, forbidden page for the others)
+* To manage subscriptions, I've created a list selection in addition to manual entry (more practical for searching for people when you've just subscribed).  
+* Access to html page by typing url is blocked for non authorized users (only creators can access to their own tickets or reviews for modifications and deletions, forbidden page for the others)
 
 
 
