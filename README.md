@@ -1,5 +1,5 @@
 <p align="center">
- <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/836acb56-1beb-422c-afe0-bc55eb16a903">
+ <img alt="logo" src="https://github.com/LeChat76/Projet9OC/assets/119883313/3c4c7c94-e1f2-4360-a0b8-a40ae7a1fcb9">
 </p>
 
 # Projet9OC
