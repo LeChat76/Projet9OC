@@ -42,7 +42,7 @@ label {
     width: 680px;
     background-color: #f2f2f2;
     border-radius: 5px;
-    padding : 30px;
+    padding : 0px 30px 20px 30px;
     justify-content: space-around;
     border: 1px solid #ccc;
 }
@@ -65,8 +65,8 @@ select {
     background: #F2F2F2;
     padding: 8px;
     margin-right: 50px;
-    margin-left: 52px;
-    width: 300px;
+    margin-left: 30px;
+    width: 320px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;
     font-size: 14px;
@@ -76,9 +76,9 @@ input[type="text"] {
     text-align: center;
     background: #F2F2F2;
     padding: 8px;
-    margin-right: 55px;
-    margin-left: 50px;
-    width: 280px;
+    margin-right: 50px;
+    margin-left: 30px;
+    width: 300px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;  
     font-size: 14px;
@@ -97,8 +97,8 @@ input[type="text"] {
     padding: 8px;
     font-size: 14px;
     margin-right: 55px;
-    margin-left: 20px;
-    width: 310px;
+    margin-left: 30px;
+    width: 300px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;
 }
@@ -109,10 +109,10 @@ input[type="text"] {
     background: #F2F2F2;
     padding: 8px;
     font-size: 14px;
-    margin-right: 55px;
+    /* margin-right: 55px; */
     margin-left: 30px;
     margin-bottom: 20px;
-    width: 595px;
+    width: 590px;
     border: 1px solid #CCCCCC;
     border-radius: 10px;
 }

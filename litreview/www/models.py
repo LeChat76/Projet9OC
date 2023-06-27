@@ -25,6 +25,14 @@ class Ticket(models.Model):
 
     IMAGE_MAX_SIZE = (800, 800)
 
+    @property
+    def has_review(self):
+        number_review = Review.objects.filter(ticket=self).count()
+        if number_review > 0:
+            return True
+        else:
+            return False
+
     def resize_image(self):
         if self.image:
             image = Image.open(self.image.path)

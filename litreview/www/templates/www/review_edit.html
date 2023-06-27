@@ -25,7 +25,7 @@
                 {% if edit_form.instance.user == request.user %}
                     <p><label>Ticket - Vous</label></p>
                 {% else %}
-                    <p><label>Ticket - {{ edit_form.instance.user }}</label></p>
+                    <p><label>Ticket - {{ edit_form.instance.user|capfirst }}</label></p>
                 {% endif %}
                 <p><label>{{ edit_form.title }}</label></p>
                 {% if edit_form.description %}

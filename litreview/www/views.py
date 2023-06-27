@@ -9,41 +9,22 @@ from authentication.models import UserFollows
 
 
 def get_users_viewable_reviews(users):
-    if isinstance(users, list):
-        reviews = Review.objects.filter(user__in=users)
-    else:
-        reviews = Review.objects.filter(user=users)
+    reviews = Review.objects.filter(user__in=users)
     return reviews
 
 def get_users_viewable_tickets(users):
-    if isinstance(users, list):
-        tickets = Ticket.objects.filter(user__in=users)
-    else:
-        tickets = Ticket.objects.filter(user=users)
+    tickets = Ticket.objects.filter(user__in=users)
     return tickets
 
 @login_required
 def flux(request):
-    followed_users = UserFollows.objects.filter(user=request.user).values_list('followed_user', flat=True)
-    followed_users = list(followed_users) + [request.user.id]
-    # print('TYPE : ',(type(followed_users)))
-    # print('FOLLOWED_USERS : ', followed_users)
-    # print('USER_ID : ', request.user.id)
-    reviews = get_users_viewable_reviews(list(followed_users))
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    tickets = get_users_viewable_tickets(list(followed_users)).annotate(
-        content_type=Case(
-            When(review__isnull=False, then=Value('TICKET_WR')),
-            default=Value('TICKET_WOR'),
-            output_field=CharField()
-        )
-    )
-
-    print('TICKETS : ', tickets)
+    followed_users = list(UserFollows.objects.filter(user=request.user).values_list('followed_user', flat=True)) + [request.user.id]
+    tickets = get_users_viewable_tickets(followed_users).annotate(content_type=Value('TICKET', CharField()))
+    reviews = Review.objects.filter(ticket__in=tickets).annotate(content_type=Value('REVIEW', CharField()))
 
     flux = sorted(
         chain(tickets, reviews),
-        key=lambda post: post.time_created,
+        key=lambda flux: flux.time_created,
         reverse=True,
     )
 
@@ -52,10 +33,8 @@ def flux(request):
 
 @login_required
 def post(request):
-    reviews = get_users_viewable_reviews(request.user)
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    tickets = get_users_viewable_tickets(request.user) 
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    reviews = get_users_viewable_reviews([request.user]).annotate(content_type=Value('REVIEW', CharField()))
+    tickets = get_users_viewable_tickets([request.user]).annotate(content_type=Value('TICKET', CharField()))
 
     posts = sorted(
         chain(tickets, reviews),
@@ -201,18 +180,21 @@ def review_delete(request, review_id):
 def ticket_create_review(request, ticket_id):
     review_form = forms.ReviewForm()
     ticket = get_object_or_404(Ticket, id=ticket_id)
+    if ticket.has_review:
+        print('HAS_REVIEW', ticket.has_review)
+        raise PermissionDenied
+    else:
+        if request.method == 'POST':
+            review_form = forms.ReviewForm(request.POST)
+            if review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.ticket = ticket
+                review.user = request.user
+                review.save()
+                return redirect('flux')
+        context = {
+            'ticket': ticket,
+            'review_form': review_form,
 
-    if request.method == 'POST':
-        review_form = forms.ReviewForm(request.POST)
-        if review_form.is_valid():
-            review = review_form.save(commit=False)
-            review.ticket = ticket
-            review.user = request.user
-            review.save()
-            return redirect('flux')
-    context = {
-        'ticket': ticket,
-        'review_form': review_form,
-
-    }
-    return render(request, 'www/ticket_create_review.html', context=context)
+        }
+        return render(request, 'www/ticket_create_review.html', context=context)

@@ -17,10 +17,8 @@
 
 {% for flu in flux %}
 
-    {% if flu.content_type == 'TICKET_WR' %}
-        {% include './partials/flux_ticket_wr_snippet.html' %}
-    {% elif flu.content_type == 'TICKET_WOR' %}
-        {% include './partials/flux_ticket_wor_snippet.html' %}
+    {% if flu.content_type == 'TICKET' %}
+        {% include './partials/flux_ticket_snippet.html' %}
     {% elif flu.content_type == 'REVIEW' %}
         {% include './partials/flux_review_snippet.html' %}
     {% endif %}

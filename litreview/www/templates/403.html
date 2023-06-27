@@ -2,15 +2,29 @@
 
 <!doctype html>
 
+{% load static %}
+
 <html lang="fr">
-<head>
-  <title>403 Forbidden</title>
-  <link rel="stylesheet" href="/static/base.css">
+  <head>
+    <title>LitReview</title>
+    <link rel="stylesheet" href="{% static 'loggedin.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body>
-  <div id="header">
-    <img src="/static/images/LITReview_st.png" alt="Logo LitReview">
+  <div id="header-loggedin">
+    <img src="{% static 'images/LITReview_st.png' %}" alt="Logo LitReview" ondragstart="return false;">
     <h1>LitReview</h1>
+    <div id="container-loggedin">
+        <a href="{% url 'flux' %}" ondragstart="return false;">Flux</a>
+        <a href="{% url 'post' %}" ondragstart="return false;">Posts</a>
+        <a href="{% url 'subscriptions' %}" ondragstart="return false;">Abonnements</a>
+        <a href="{% url 'logout' %}" ondragstart="return false;">Se déconnecter</a>
+    </div>
+</div>
+<p>Vous êtes connecté en tant que <a href="{% url 'subscriptions' %}">{{ request.user|capfirst }}.</a></p>
+<div id="footer">
+    <p>&copy; 2023 LeChat76. Tous droits réservés.</p>
+</div>
 </div>
   <h1>403 Forbidden</h1><p></p>
   <span>You are not authorized to access this page</span>
