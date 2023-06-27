@@ -26,7 +26,8 @@ Finally, access the site by typing "http://127.0.0.1:8000/" in your favorite nav
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## How to use
-From the home page, create an account by clicking on the *Register* button.  
+From the home page, create an account by clicking on the *Register* button  
+(or use accounts already created - case sensitive, same password (Toto1234) : MrRobot (admin), cedric, cedric2, MrPinguin, KevinMitnick, Helene, McFly)  
 Fill in the __username__, __password__ and __password verification__ (at least 8 characters, at least one uppercase letter and at least one number).
 
 <p>
