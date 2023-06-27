@@ -1,0 +1,27 @@
+<!-- templates/www/unsubscribe.html -->
+
+<!DOCTYPE html>
+
+{% extends 'loggedin.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'unsubscribe.css' %}"> 
+
+<h2>Suppression d'un abonnement</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div id="container-unsubscribe">
+        <span> Confirmez-vous la suppression de l'abonnement à <b>{{ followed_user|capfirst }}</b>? </span>
+        <div id="container-buttons">
+            <p>
+                <button type="submit" name="confirmYes" value="{{ followed_user }}">Oui</button>
+                <button type="submit" name="confirmNo" value="non">Non</button>
+            </p>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}

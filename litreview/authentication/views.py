@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from .models import UserFollows
+from .models import UserFollows, User
 from django.contrib import messages
 
 from . import forms
@@ -69,7 +69,6 @@ def subscriptions(request):
             followed_user_id = request.POST['followed_user']
             followed_user = get_user_model().objects.get(id=followed_user_id)
             UserFollows.objects.create(user=request.user, followed_user=followed_user)
-            # return redirect('subscriptions')
         
         # adding an user to follow from input
         if 'add_subscription2' in request.POST:
@@ -81,28 +80,30 @@ def subscriptions(request):
                 messages.error(request, 'Aucun utilisateur trouvé')
             else:
                 if requested_user == request.user:
-                    print("C'est TOI! ;-)")
                     messages.error(request, 'Vous VOUS suivez deja ;-)')
                 elif requested_user not in available_users:
-                    print('DEJA SUIVI')
                     messages.error(request, 'Vous suivez déjà cet utilisateur')
                 else:
                     for available_user in available_users:           
                         if requested_user == available_user:
-                            # print('YES/USER : ', requested_user) 
                             UserFollows.objects.create(user=request.user, followed_user=available_user)
             return redirect('subscriptions')
         
-                
         # remove user from click on button
         if 'remove_subscription' in request.POST:
-            followed_user_id = request.POST['remove_subscription']
-            if followed_user_id:
-                followed_user_id = int(followed_user_id)
-                followed_user = get_user_model().objects.get(id=followed_user_id)
-                UserFollows.objects.filter(user=request.user, followed_user=followed_user).delete()
-            return redirect('subscriptions')
+            followed_user_id = int(request.POST['remove_subscription'])
+            followed_user = get_user_model().objects.get(id=followed_user_id)
+            context = {
+                'followed_user': followed_user,
+            }
+            return render(request, 'authentication/unsubscribe.html', context)
     
+        if 'confirmYes' in request.POST:
+            followed_user = request.POST['confirmYes']
+            followed_user_id = get_user_model().objects.get(username=followed_user)
+            UserFollows.objects.filter(user=request.user, followed_user=followed_user_id).delete()
+            print('FOLLOWED_USER', followed_user)
+
     context = {
         'followed_users': followed_users,
         'followers_users': followers_users,

@@ -13,6 +13,9 @@ h1 {
 
 h2 {
     user-select: none;
+    display: flex;
+    justify-content: center;
+    
 }
 
 h3 {

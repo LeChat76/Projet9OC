@@ -1,0 +1,32 @@
+#container-unsubscribe {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    width: 500px;
+    margin: auto;
+    padding: 30px 30px 10px 30px;
+    border: 1px solid #ccc;
+}
+
+#container-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+span {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+button[type="submit"] {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+    width: 220px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+  
