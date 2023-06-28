@@ -89,7 +89,7 @@ def subscriptions(request):
                             UserFollows.objects.create(user=request.user, followed_user=available_user)
             return redirect('subscriptions')
         
-        # remove user from click on button
+        # remove user from button
         if 'remove_subscription' in request.POST:
             followed_user_id = int(request.POST['remove_subscription'])
             followed_user = get_user_model().objects.get(id=followed_user_id)
@@ -98,6 +98,7 @@ def subscriptions(request):
             }
             return render(request, 'authentication/unsubscribe.html', context)
     
+        # confirm deletion of a followed user
         if 'confirmYes' in request.POST:
             followed_user = request.POST['confirmYes']
             followed_user_id = get_user_model().objects.get(username=followed_user)

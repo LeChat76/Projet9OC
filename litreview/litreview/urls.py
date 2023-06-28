@@ -32,7 +32,6 @@ urlpatterns = [
     path('post/', www.views.post, name='post'),
     path('flux/', www.views.flux, name='flux'),
     path('subscriptions/', authentication.views.subscriptions, name='subscriptions'),
-    path('unsubscribe/', authentication.views.unsubscribe, name='unsubscribe'),
     path('ticket/', www.views.new_ticket, name='new_ticket'),
     path('ticket/<int:ticket_id>/edit/', www.views.ticket_edit, name='ticket_edit'),
     path('ticket/<int:ticket_id>/delete/', www.views.ticket_delete, name='ticket_delete'),
