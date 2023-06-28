@@ -55,7 +55,8 @@ You can see, edite or delete all of your ticket and review in the post menu.
 
 ## Features
 * To manage subscriptions, I've created a list selection in addition to manual entry (more practical for searching for people when you've just subscribed).  
-* Access to html page by typing url is blocked for non authorized users (only creators can access to their own tickets or reviews for modifications and deletions, forbidden page for the others)
+* Access to html page by typing url is blocked for non authorized users (only creators can access to their own tickets or reviews for modifications and deletions, forbidden page for the others).
+* Access to review creation is locked by typing the url directly when the ticket is already associated with a review (to avoid multiple reviews for one ticket).
 
 
 
