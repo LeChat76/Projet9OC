@@ -21,6 +21,7 @@ def flux(request):
     followed_users = list(UserFollows.objects.filter(user=request.user).values_list('followed_user', flat=True)) + [request.user.id]
     tickets = get_users_viewable_tickets(followed_users).annotate(content_type=Value('TICKET', CharField()))
     reviews = Review.objects.filter(ticket__in=tickets).annotate(content_type=Value('REVIEW', CharField()))
+    reviews = get_users_viewable_reviews(followed_users).annotate(content_type=Value('REVIEW', CharField()))
 
     flux = sorted(
         chain(tickets, reviews),
